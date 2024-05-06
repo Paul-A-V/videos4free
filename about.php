@@ -11,6 +11,8 @@
 </head>
 
 <body>
+  <?php
+  ?>
   <header>
     <a href="index.php"><img src="logo.png" alt="Logo" id="logo"></a>
     <img src="menu.png" alt="Menu" id="menu">
