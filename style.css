@@ -1,0 +1,349 @@
+/* Default styles */
+* {
+  /* makes the whole page fit properly regardless of browser */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* font and background stuff, not much to say here */
+  font-family: 'Roboto', sans-serif;
+  /* yes im using sans serif, looks good to me */
+  line-height: 1.5;
+  color: #FFFFFF;
+  background-color: rgb(30, 30, 30);
+}
+
+header {
+  /* just basic background stuff for header */
+  background-color: #FF5733;
+  padding: 10px;
+  text-align: center;
+}
+
+nav ul {
+  /* makes the nav items in a row */
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+nav li {
+  /* puts some space between nav items */
+  margin-right: 20px;
+}
+
+nav a {
+  /* makes the links to other pages look good */
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+nav a:hover {
+  /* makes the mouse change color when hovering links to other pages, look cool */
+  color: #333333;
+}
+
+main {
+  /* makes the stuff below header centered and puts some space in between */
+  max-width: 800px;
+  /* not too big and not too small, you can remove it and it still looks good but i like it like this */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1,
+h2,
+h3 {
+  /* again more spacing between for a cleaner look */
+  margin-bottom: 20px;
+}
+
+section {
+  /* puts the featured videos a bit lower, needed for a better look with the max width at 800 */
+  margin-bottom: 40px;
+}
+
+form label {
+  /* lot of form stuff to look better, not much to say here and below */
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+form input[type="text"],
+form input[type="email"],
+form textarea {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background-color: #F2F2F2;
+}
+
+form input[type="search"] {
+  border: none;
+  border-radius: 5px;
+}
+
+form button[type="submit"] {
+  background-color: #FF5733;
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+form button[type="submit"]:hover {
+  background-color: #333333;
+}
+
+#popular_movies {
+  list-style: none;
+  display: flex;
+}
+
+#new_movies img {
+  width: 100%;
+  padding: 5px;
+}
+
+#popular_series img {
+  width: 100%;
+  padding: 5px;
+}
+
+#popular_series {
+  list-style: none;
+  display: flex;
+}
+
+#new_series img {
+  width: 100%;
+  padding: 5px;
+}
+
+#new_series {
+  list-style: none;
+  display: flex;
+}
+
+#new_movies {
+  list-style: none;
+  display: flex;
+}
+
+#popular_movies img {
+  width: 100%;
+  padding: 5px;
+}
+
+#new_movies img {
+  width: 100%;
+}
+
+#menu {
+  width: 50px;
+  height: 50px;
+}
+
+#logo {
+  height: 50px;
+  width: 50px;
+}
+
+#Close {
+  width: 100px;
+  margin: 10% auto;
+
+}
+
+/* fixed php featured videos */
+.desktop_menu ul,
+.mobile_menu ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.desktop_menu li,
+.mobile_menu li {
+  margin-right: 20px;
+}
+
+.desktop_menu a,
+.mobile_menu a {
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+.desktop_menu a:hover,
+.mobile_menu a:hover {
+  color: #333333;
+}
+
+/* Style for featured videos sections */
+.featured-videos,
+.featured-videos_2 {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.featured-videos li,
+.featured-videos_2 li {
+  width: calc(33.33% - 20px);
+}
+
+.featured-videos_2 li:last-child,
+.featured-videos li:last-child {
+  margin-right: 0;
+}
+
+.featured-videos video,
+.featured-videos_2 video {
+  width: 100%;
+  height: auto;
+}
+
+#mobile_menu {
+  display: none;
+}
+
+#buttons {
+  display: none;
+}
+
+/* Media queries */
+@media only screen and (max-width: 767px) {
+
+  #mobile_menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 99;
+  }
+
+  .desktop_menu {
+    display: none;
+  }
+
+  header {
+    padding: 5px;
+  }
+
+  main {
+    padding: 10px;
+  }
+
+  form input[type="text"],
+  form input[type="email"],
+  form textarea {
+    font-size: 16px;
+  }
+
+  nav ul {
+    flex-direction: column;
+  }
+
+  #logo {
+    display: none;
+  }
+
+  li.mobile_ui {
+    margin-left: 15px;
+    padding: 10px;
+    border: solid;
+    border-left: none;
+    border-right: none;
+    border-width: 2px;
+  }
+
+  li.mobile_ui:last-child {
+    border-bottom: solid 2px;
+  }
+
+  li.mobile_ui+li.mobile_ui {
+    border-top: none;
+    /* remove top border between adjacent li items */
+  }
+
+  .featured-videos li,
+  .featured-videos_2 li {
+    flex-basis: 100%;
+    margin-right: 0;
+  }
+
+  .featured-videos li:nth-last-child(-n+2),
+  /* displays only first video from each ul  */
+  .featured-videos_2 li:nth-last-child(-n+2) {
+    display: none;
+  }
+
+  #buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  #buttons button {
+    padding: 15px 30px;
+    background-color: #FF5733;
+    border: none;
+    border-radius: 5px;
+  }
+}
+
+#previous {
+  margin-right: 5px;
+}
+
+#previous_play {
+  transform: rotate(180deg);
+  width: 50px;
+}
+
+#next_play {
+  width: 50px;
+}
+
+@media only screen and (min-width: 768px) {
+
+  /* mobile menu to not show on desktop   */
+  #menu {
+    display: none;
+  }
+}
+
+/* Additional styles for desktop and mobile menus */
+.desktop_menu ul,
+.mobile_menu ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.desktop_menu li,
+.mobile_menu li {
+  margin-right: 20px;
+}
+
+.desktop_menu a,
+.mobile_menu a {
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+.desktop_menu a:hover,
+.mobile_menu a:hover {
+  color: #333333;
+}

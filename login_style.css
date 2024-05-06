@@ -1,0 +1,104 @@
+/* login_style.css */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.5;
+    color: #FFFFFF;
+    background-color: rgb(30, 30, 30);
+}
+
+header {
+    background-color: #FF5733;
+    padding: 10px;
+    text-align: center;
+}
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #F2F2F2;
+}
+
+button[type="submit"] {
+    background-color: #FF5733;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button[type="submit"]:hover {
+    background-color: #333333;
+}
+
+.success-message,
+.error-message {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.success-message {
+    color: #FF5733;
+}
+
+.error-message {
+    color: #FF0000;
+}
+
+.home-button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.home-button a {
+    background-color: #FF5733;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.home-button a:hover {
+    background-color: #333333;
+}
+
+.welcome-message a {
+    color: #FFA500;
+    /* Orange color */
+    text-decoration: none;
+    /* Remove underline from the link */
+}
+
+.welcome-message a:hover {
+    text-decoration: underline;
+    /* Add underline on hover */
+}
