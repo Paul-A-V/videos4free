@@ -1,0 +1,13 @@
+com\mycompany\adminpanelmanager\UpdateVideoDialog.class
+com\mycompany\adminpanelmanager\DeleteTVSeriesDialog.class
+com\mycompany\adminpanelmanager\TVSeriesAdminPanel.class
+com\mycompany\adminpanelmanager\DeleteVideoDialog.class
+com\mycompany\adminpanelmanager\AddMovieDialog.class
+com\mycompany\adminpanelmanager\AddTVSeriesDialog.class
+com\mycompany\adminpanelmanager\AdminPanelManager.class
+com\mycompany\adminpanelmanager\UpdateTVSeriesDialog.class
+com\mycompany\adminpanelmanager\AddVideoDialog.class
+com\mycompany\adminpanelmanager\DeleteMovieDialog.class
+com\mycompany\adminpanelmanager\MovieAdminPanel.class
+com\mycompany\adminpanelmanager\AdminPanel.class
+com\mycompany\adminpanelmanager\UpdateMovieDialog.class
