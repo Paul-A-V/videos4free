@@ -37,11 +37,7 @@ session_start();
                     echo "<li><a href='logout.php'>Logout</a></li>";
                 }
                 ?>
-                <li>
-                    <form action="#" method="get" id="search_bar">
-                        <input type="search" placeholder="Search...">
-                    </form>
-                </li>
+                <li><a href="search.php">Search</a></li>
             </ul>
         </nav>
         <nav id="mobile_menu">
@@ -52,6 +48,7 @@ session_start();
                 <li class="mobile_ui"><a href="movies.php">Movies</a></li>
                 <li class="mobile_ui"><a href="about.php">About</a></li>
                 <li class="mobile_ui"><a href="contact.html">Contact</a></li>
+                <li class="mobile_ui"><a href="search.php">Search</a></li>
                 <?php
                 if (isset($_SESSION['username'])) {
                     echo "<li class='mobile_ui'><a>Welcome, " . $_SESSION['username'] . "</a></li>";

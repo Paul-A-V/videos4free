@@ -1,0 +1,222 @@
+/* Default styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.5;
+    color: #FFFFFF;
+    background-color: rgb(30, 30, 30);
+}
+
+header {
+    background-color: #FF5733;
+    padding: 10px;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+nav li {
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+nav a:hover {
+    color: #333333;
+}
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1,
+h2,
+h3 {
+    margin-bottom: 20px;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+form input[type="text"],
+form input[type="email"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    background-color: #F2F2F2;
+}
+
+form input[type="search"] {
+    border: none;
+    border-radius: 5px;
+}
+
+form button[type="submit"] {
+    background-color: #FF5733;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+form button[type="submit"]:hover {
+    background-color: #333333;
+}
+
+.desktop_menu ul,
+.mobile_menu ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+.desktop_menu li,
+.mobile_menu li {
+    margin-right: 20px;
+}
+
+.desktop_menu a,
+.mobile_menu a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.desktop_menu a:hover,
+.mobile_menu a:hover {
+    color: #333333;
+}
+
+/* Media queries */
+@media only screen and (max-width: 767px) {
+    #mobile_menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.95);
+        z-index: 99;
+    }
+
+    .desktop_menu {
+        display: none;
+    }
+
+    header {
+        padding: 5px;
+    }
+
+    main {
+        padding: 10px;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form textarea {
+        font-size: 16px;
+    }
+
+    nav ul {
+        flex-direction: column;
+    }
+
+    #logo {
+        display: none;
+    }
+
+    li.mobile_ui {
+        margin-left: 15px;
+        padding: 10px;
+        border: solid;
+        border-left: none;
+        border-right: none;
+        border-width: 2px;
+    }
+
+    li.mobile_ui:last-child {
+        border-bottom: solid 2px;
+    }
+
+    li.mobile_ui+li.mobile_ui {
+        border-top: none;
+    }
+}
+
+button[type="submit"] {
+    background-color: #FF5733;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button[type="submit"]:hover {
+    background-color: #333333;
+}
+
+/* Apply login button styles to the search button */
+#search input[type="submit"] {
+    background-color: #FF5733;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#search input[type="submit"]:hover {
+    background-color: #333333;
+}
+
+#search_input {
+    width: 200px;
+    /* Adjust the width as needed */
+    padding: 8px;
+    /* Adjust padding to match the login input */
+    border-radius: 5px;
+    /* Match the border radius with other inputs */
+}
+
+.centered-content {
+    margin: 0 auto;
+    /* This centers the container */
+    text-align: center;
+    /* This centers the content inside the container */
+}
+
+
+@media only screen and (min-width: 768px) {
+    #menu {
+        display: none;
+    }
+}
