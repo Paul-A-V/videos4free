@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2024 at 10:26 PM
+-- Generation Time: May 09, 2024 at 03:33 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -72,7 +72,7 @@ CREATE TABLE `featured_videos` (
 --
 
 INSERT INTO `featured_videos` (`id`, `title`, `description`, `video_url`, `thumbnail_url`, `category`, `is_featured`) VALUES
-(1, 'Wednesday Addams', 'The Ball Scene', 'Wednesday_Addams.mp4', 'WA1.jpg', 'Action/Thriller', 1),
+(1, 'Wednesday', 'The Ball Scene', 'Wednesday_Addams.mp4', 'WA1.jpg', 'Action/Thriller', 1),
 (2, 'Peaky Blinders', 'Description for Peaky Blinders video', 'Peaky_Blinders.mp4', 'PA1.jpg', 'Drama', 1),
 (3, 'Video 2', 'Description for Video 2', 'video2.mp4', 'V2.jpg', 'Miscellaneous', 1),
 (4, 'Breaking Bad', 'Description for Breaking Bad video', 'Breaking_Bad.mp4', 'BB1.jpg', 'Drama', 1),
@@ -149,15 +149,16 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `registration_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `is_admin` tinyint(1) DEFAULT 0
+  `is_admin` tinyint(1) DEFAULT 0,
+  `confirmation_code` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `registration_date`, `is_admin`) VALUES
-(1, 'testuser', 'test@example.com', 'testpassword', '2024-05-02 18:48:07', 0);
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `registration_date`, `is_admin`, `confirmation_code`) VALUES
+(1, 'testuser', 'test@example.com', 'testpassword', '2024-05-02 18:48:07', 0, NULL);
 
 --
 -- Indexes for dumped tables
@@ -223,7 +224,7 @@ ALTER TABLE `contact_submissions`
 -- AUTO_INCREMENT for table `featured_videos`
 --
 ALTER TABLE `featured_videos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `movies`
@@ -241,7 +242,7 @@ ALTER TABLE `tv_series`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
