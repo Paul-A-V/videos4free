@@ -22,11 +22,6 @@
         <nav>
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li class="search">
-                    <a href="search.php">
-                        <span class="text">Search</span>
-                    </a>
-                </li>
             </ul>
         </nav>
     </header>
@@ -67,7 +62,7 @@
                             echo "<p>Title: " . $row['title'] . "</p>";
                             echo "<p>Description: " . $row['description'] . "</p>";
                             echo "<p>Genre: " . $row['genre'] . "</p>";
-                            echo '<a href="player.html"><img src="' . $row["thumbnail_url"] . '" alt="Movie Thumbnail"></a>';
+                            echo '<a href="player.php"><img src="' . $row["thumbnail_url"] . '" alt="Movie Thumbnail"></a>';
                             if ($row['type'] == 'movie') {
                                 echo "<p>Type: Movie</p>";
                             } elseif ($row['type'] == 'tv_series') {

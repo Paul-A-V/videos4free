@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,25 +14,42 @@
   </head>
   <body>
     <header>
-        <a href="index.html"><img src="logo.png" alt="Logo" id="logo"></a>
+        <a href="index.php"><img src="logo.png" alt="Logo" id="logo"></a>
         <img src="menu.png" alt="Menu" id="menu">
         <nav class="desktop_menu">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="tv_series.html">TV Series</a></li>
-          <li><a href="movies.html">Movies</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="index.php">Home</a></li>
+          <li><a href="tv_series.php">TV Series</a></li>
+          <li><a href="movies.php">Movies</a></li>
+          <li><a href="contact.php">Contact</a></li>
+          <?php
+                if (isset($_SESSION['username'])) {
+                    echo "<li><a href='logout.php'>Logout</a></li>";
+                }
+                else {
+                    echo  "<li><a href='login.php'>Login</a></li>";
+                    }
+                ?>
+                <li><a href="search.php">Search</a></li>
         </ul>
       </nav>
       <nav id="mobile_menu">
         <img src="close.png" id="Close" alt="404closenotfound">
       <ul>
-        <li class="mobile_ui"><a href="index.html">Home</a></li>
-        <li class="mobile_ui"><a href="tv_series.html">TV Series</a></li>
-        <li class="mobile_ui"><a href="movies.html">Movies</a></li>
-        <li class="mobile_ui"><a href="about.html">About</a></li>
-        <li class="mobile_ui"><a href="contact.html">Contact</a></li>
+        <li class="mobile_ui"><a href="index.php">Home</a></li>
+        <li class="mobile_ui"><a href="tv_series.php">TV Series</a></li>
+        <li class="mobile_ui"><a href="movies.php">Movies</a></li>
+        <li class="mobile_ui"><a href="contact.php">Contact</a></li>
+        <li class="mobile_ui"><a href="search.php">Search</a></li>
+        <?php
+                if (isset($_SESSION['username'])) {
+                    //add mylist/bookmark
+                    echo "<li class='mobile_ui'><a href='logout.php'>Logout</a></li>";
+                } else {
+                    //add mylist/bookmark same here even logged out/as guest
+                    echo "<li class='mobile_ui'><a href='login.php'>Login</a></li>";
+                }
+                ?>
       </ul>
       </nav>
     </header>

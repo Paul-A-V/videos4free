@@ -1,4 +1,4 @@
-/* login_style.css */
+/* register_style.css */
 
 * {
     box-sizing: border-box;
@@ -37,6 +37,7 @@ label {
 }
 
 input[type="text"],
+input[type="email"],
 input[type="password"] {
     width: 100%;
     padding: 10px;
@@ -91,20 +92,7 @@ button[type="submit"]:hover {
     background-color: #333333;
 }
 
-.welcome-message a {
-    color: #FFA500;
-    /* Orange color */
-    text-decoration: none;
-    /* Remove underline from the link */
-}
-
-.welcome-message a:hover {
-    text-decoration: underline;
-    /* Add underline on hover */
-}
-
-#signup a {
+#login a {
     color: #FF5733;
     text-decoration: underline;
-    /* Orange color */
 }

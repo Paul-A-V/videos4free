@@ -52,7 +52,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
                     session_start();
                     $_SESSION['username'] = $username;
                     echo "<h2 class='success-message'>Login successful!</h2>";
-                    echo "<p class='welcome-message'>Welcome, <a href='index.php'>" . $_SESSION['username'] . "</a></p>";
+                    header ( "refresh:1;url=index.php" );
                 } else {
                     echo "<h2 class='error-message'>Invalid username or password!</h2>";
                 }
@@ -60,6 +60,9 @@ $conn = new mysqli($servername, $username, $password, $dbname);
             ?>
         </form>
     </section>
+    <div id="signup">
+    Don't have an account? <a href="signup.php">Sign up</a> now for free!
+        </div>
 </main>
 </body>
 </html>

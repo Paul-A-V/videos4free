@@ -23,19 +23,14 @@ session_start();
                 <li><a href="index.php">Home</a></li>
                 <li><a href="tv_series.php">TV Series</a></li>
                 <li><a href="movies.php">Movies</a></li>
-                <li><a href="about.php">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <?php
-                if (isset($_SESSION['username'])) {
-                    echo "<li><a>Welcome, " . $_SESSION['username'] . "</a></li>";
-                }
-                ?>
-                <li><a href="login.php">Login</a></li>
-                <li><a href="signup.php">Signup</a></li>
+                <li><a href="contact.php">Contact</a></li>
                 <?php
                 if (isset($_SESSION['username'])) {
                     echo "<li><a href='logout.php'>Logout</a></li>";
                 }
+                else {
+                    echo  "<li><a href='login.php'>Login</a></li>";
+                    }
                 ?>
                 <li><a href="search.php">Search</a></li>
             </ul>
@@ -46,16 +41,15 @@ session_start();
                 <li class="mobile_ui"><a href="index.php">Home</a></li>
                 <li class="mobile_ui"><a href="tv_series.php">TV Series</a></li>
                 <li class="mobile_ui"><a href="movies.php">Movies</a></li>
-                <li class="mobile_ui"><a href="about.php">About</a></li>
-                <li class="mobile_ui"><a href="contact.html">Contact</a></li>
+                <li class="mobile_ui"><a href="contact.php">Contact</a></li>
                 <li class="mobile_ui"><a href="search.php">Search</a></li>
                 <?php
                 if (isset($_SESSION['username'])) {
-                    echo "<li class='mobile_ui'><a>Welcome, " . $_SESSION['username'] . "</a></li>";
+                    //add mylist/bookmark
                     echo "<li class='mobile_ui'><a href='logout.php'>Logout</a></li>";
                 } else {
+                    //add mylist/bookmark same here even logged out/as guest
                     echo "<li class='mobile_ui'><a href='login.php'>Login</a></li>";
-                    echo "<li class='mobile_ui'><a href='signup.php'>Signup</a></li>";
                 }
                 ?>
             </ul>

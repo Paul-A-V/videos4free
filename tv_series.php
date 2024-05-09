@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,8 +21,16 @@
             <li><a href="index.php">Home</a></li>
             <li><a href="tv_series.php">TV Series</a></li>
             <li><a href="movies.php">Movies</a></li>
-            <li><a href="about.php">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="contact.php">Contact</a></li>
+            <?php
+                if (isset($_SESSION['username'])) {
+                    echo "<li><a href='logout.php'>Logout</a></li>";
+                }
+                else {
+                    echo  "<li><a href='login.php'>Login</a></li>";
+                    }
+                ?>
+                <li><a href="search.php">Search</a></li>
         </ul>
     </nav>
     <nav id="mobile_menu">
@@ -27,8 +39,17 @@
             <li class="mobile_ui"><a href="index.php">Home</a></li>
             <li class="mobile_ui"><a href="tv_series.php">TV Series</a></li>
             <li class="mobile_ui"><a href="movies.php">Movies</a></li>
-            <li class="mobile_ui"><a href="about.php">About</a></li>
-            <li class="mobile_ui"><a href="contact.html">Contact</a></li>
+            <li class="mobile_ui"><a href="contact.php">Contact</a></li>
+            <li class="mobile_ui"><a href="search.php">Search</a></li>
+            <?php
+                if (isset($_SESSION['username'])) {
+                    //add mylist/bookmark
+                    echo "<li class='mobile_ui'><a href='logout.php'>Logout</a></li>";
+                } else {
+                    //add mylist/bookmark same here even logged out/as guest
+                    echo "<li class='mobile_ui'><a href='login.php'>Login</a></li>";
+                }
+                ?>
         </ul>
     </nav>
 </header>
@@ -62,7 +83,7 @@
             // Output first three thumbnails dynamically
             if ($result_first_3->num_rows > 0) {
                 while ($row = $result_first_3->fetch_assoc()) {
-                    echo '<li><a href="player.html"><img src="' . $row["thumbnail_url"] . '" alt="TV Series Thumbnail"></a></li>';
+                    echo '<li><a href="player.php"><img src="' . $row["thumbnail_url"] . '" alt="TV Series Thumbnail"></a></li>';
                 }
             } else {
                 echo "0 results";
@@ -94,7 +115,7 @@
             // Output next three thumbnails dynamically
             if ($result_next_3->num_rows > 0) {
                 while ($row = $result_next_3->fetch_assoc()) {
-                    echo '<li><a href="player.html"><img src="' . $row["thumbnail_url"] . '" alt="TV Series Thumbnail"></a></li>';
+                    echo '<li><a href="player.php"><img src="' . $row["thumbnail_url"] . '" alt="TV Series Thumbnail"></a></li>';
                 }
             } else {
                 echo "0 results";
