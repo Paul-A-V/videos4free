@@ -36,7 +36,7 @@ $result = $conn->query($query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Content Administration</title>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+    <link href="admin_style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -46,6 +46,7 @@ $result = $conn->query($query);
     <div class="content">
         <header>
             <h1>Content Operations</h1>
+            <a href="add.php" class="add-button">Add New Content</a>
         </header>
 
         <table>
@@ -65,13 +66,13 @@ $result = $conn->query($query);
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td>" . $index++ . "</td>";
-                    echo "<td><a href='content_details.php?id=" . $row['id'] . "'>" . $row["title"] . "</a></td>";
+                    echo "<td>" . $row["title"] . "</td>";
                     echo "<td>" . $row["description"] . "</td>";
                     echo "<td>" . (isset($row["year"]) ? $row["year"] : "") . "</td>"; // Check if array key exists
                     echo "<td>" . (isset($row["creator"]) ? $row["creator"] : "") . "</td>"; // Check if array key exists
                     echo "<td>" . (isset($row["genre"]) ? $row["genre"] : "") . "</td>"; // Check if array key exists
-                    echo "<td><a href='edit_content.php?id=" . $row['id'] . "'><img src='images/edit.png' alt='edit icon' width='32px'></a></td>";
-                    echo "<td><a href='delete_content.php?id=" . $row['id'] . "'><img src='images/delete.png' alt='delete icon' width='32px'></a></td>";
+                    echo "<td><a href='modify.php?id=" . $row['id'] . "'><img src='images/edit.png' alt='edit icon' width='32px'></a></td>";
+                    echo "<td><a href='delete.php?id=" . $row['id'] . "'><img src='images/delete.png' alt='delete icon' width='32px'></a></td>";
                     echo "</tr>";
                 }
             } else {
