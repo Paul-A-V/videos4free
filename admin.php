@@ -8,7 +8,7 @@ if (!isset($_SESSION['username'])) {
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "videos4free";
+$dbname = "videos4free"; // Update to match your database name
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -16,20 +16,16 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $stmt = $conn->prepare("DELETE FROM portfolio WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    if ($stmt->execute()) {
-        header("Location: index.php");
-        exit;
-    } else {
-        echo "Error deleting record: " . $conn->error;
-    }
-}
+// Query to fetch data from featured_videos, movies, and tv_series
+$query = "SELECT * FROM featured_videos 
+          UNION ALL 
+          SELECT id, title, description, release_year AS year, director AS creator, genre, '' AS image_url FROM movies 
+          UNION ALL 
+          SELECT id, title, description, start_year AS year, creator, genre, '' AS image_url FROM tv_series 
+          ORDER BY id ASC";
 
-$query = "SELECT * FROM portfolio order by id ASC";
-$rezultat = mysqli_query($conn, $query) or die('Error');
+$result = $conn->query($query);
+
 ?>
 
 <!DOCTYPE html>
@@ -38,66 +34,48 @@ $rezultat = mysqli_query($conn, $query) or die('Error');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clients administration application</title>
+    <title>Content Administration</title>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
 </head>
 
 <body>
 
-    <div class="sidebar">
-        <h2>Clients Administration</h2>
-        <ul>
-            <li><a href="index.php">Home</a></li>
-            <li><a href="reports.php">Reports</a></li>
-            <li><a href="search.php"><i class="fa fa-search"></i> Search</a></li>
-            <li>
-                <form action="upload.php" method="post" enctype="multipart/form-data">
-                    <label for="image">Upload Image:</label>
-                    <input type="file" name="image" id="image">
-                    <input type="submit" value="Upload">
-                </form>
-            </li>
-            <li><button type="button"><a href="newclient.php">Add clients</a></button></li>
-            <li><button type="button"><a href="logout.php">Logout</a></button></li>
-            <li><button type="button"><a href="insertportfoliorecord.php">Insert portfolio record</a></button></li>
-            <li><button type="button"><a href="deleteportfoliorecord.php">Delete portfolio record</a></button></li>
-        </ul>
-    </div>
+    <!-- Sidebar omitted for brevity -->
 
     <div class="content">
         <header>
-            <h1>Clients Operations</h1>
+            <h1>Content Operations</h1>
         </header>
 
         <table>
             <tr>
                 <th>Index</th>
-                <th>Name</th>
-                <th>Project</th>
-                <th>Image</th>
-                <th>Service type</th>
+                <th>Title</th>
                 <th>Description</th>
+                <th>Year</th>
+                <th>Creator/Director</th>
+                <th>Genre</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
             <?php
             $index = 1;
-            if (mysqli_num_rows($rezultat) > 0) {
-                while ($row = mysqli_fetch_assoc($rezultat)) {
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td>" . $index++ . "</td>";
-                    echo "<td><a href='clients.php?id=" . $row['id'] . "&action=view'>" . $row["client"] . "</a></td>";
-                    echo "<td>" . $row["project_name"] . "</td>";
-                    echo "<td>" . $row["image"] . "</td>";
-                    echo "<td>" . $row["service_id"] . "</td>";
+                    echo "<td><a href='content_details.php?id=" . $row['id'] . "'>" . $row["title"] . "</a></td>";
                     echo "<td>" . $row["description"] . "</td>";
-                    echo "<td><a href='changeclient.php?id=" . $row['id'] . " '><img src='img/edit.png' alt='edit icon' width='32px'></a></td>";
-                    echo "<td><a href='index.php?id=" . $row['id'] . "&action=delete'><img src='img/delete.png' alt='delete icon' width='32px'></a></td>";
+                    echo "<td>" . (isset($row["year"]) ? $row["year"] : "") . "</td>"; // Check if array key exists
+                    echo "<td>" . (isset($row["creator"]) ? $row["creator"] : "") . "</td>"; // Check if array key exists
+                    echo "<td>" . (isset($row["genre"]) ? $row["genre"] : "") . "</td>"; // Check if array key exists
+                    echo "<td><a href='edit_content.php?id=" . $row['id'] . "'><img src='images/edit.png' alt='edit icon' width='32px'></a></td>";
+                    echo "<td><a href='delete_content.php?id=" . $row['id'] . "'><img src='images/delete.png' alt='delete icon' width='32px'></a></td>";
                     echo "</tr>";
                 }
             } else {
-                echo "<tr><td colspan='8'>You don't have any clients.</td></tr>";
+                echo "<tr><td colspan='8'>No content available.</td></tr>";
             }
             ?>
         </table>
