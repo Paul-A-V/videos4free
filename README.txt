@@ -1,2 +1,1 @@
-featured videos load waaaaaaaaaay slower if they are in a subfolder like they are now instead of being in the main folder for some reason
-admin.php still wip
+god forbid i have vidoes and images in a subfolder each and it works fine, thats just too much to ask i guess
