@@ -8,7 +8,7 @@ if (!isset($_SESSION['username'])) {
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "videos4free"; // Update to match your database name
+$dbname = "videos4free";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -40,8 +40,6 @@ $result = $conn->query($query);
 </head>
 
 <body>
-
-    <!-- Sidebar omitted for brevity -->
 
     <div class="content">
         <header>
