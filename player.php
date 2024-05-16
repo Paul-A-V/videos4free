@@ -9,15 +9,15 @@ session_start();
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="icon1.png" type="image/x-icon">
+  <link rel="icon" href="images/icon1.png" type="image/x-icon">
   <title>Video player</title>
   <link rel="stylesheet" href="player_style.css">
 </head>
 
 <body>
   <header>
-    <a href="index.html"><img src="logo.png" alt="Logo" id="logo"></a>
-    <img src="menu.png" alt="Menu" id="menu">
+    <a href="index.html"><img src="images/logo.png" alt="Logo" id="logo"></a>
+    <img src="images/menu.png" alt="Menu" id="menu">
     <nav class="desktop_menu">
         <ul>
             <li><a href="index.php">Home</a></li>
@@ -36,7 +36,7 @@ session_start();
         </ul>
     </nav>
     <nav id="mobile_menu">
-        <img src="close.png" id="Close" alt="404closenotfound">
+        <img src="images/close.png" id="Close" alt="404closenotfound">
       <ul>
         <li class="mobile_ui"><a href="index.php">Home</a></li>
         <li class="mobile_ui"><a href="tv_series.php">TV Series</a></li>
@@ -59,14 +59,14 @@ session_start();
     <section>
     </section>
     <section>
-      <video controls poster="WA1.jpg">
-        <source src="Wednesday_Addams.mp4" type="video/mp4">
-        <source src="Wednesday_Addams.webm" type="video/webm">
+      <video controls poster="images/WA1.jpg">
+        <source src="videos/Wednesday_Addams.mp4" type="video/mp4">
+        <source src="videos/Wednesday_Addams.webm" type="video/webm">
         Your browser does not support the video tag.
       </video>
       <ul id="player_buttons">
-        <li><button id="previous"><img src="play.png" alt="p" id="previous_play"></button></li>
-        <li><button id="next"><img src="play.png" alt="p" id="next_play"></button></li>
+        <li><button id="previous"><img src="images/play.png" alt="p" id="previous_play"></button></li>
+        <li><button id="next"><img src="images/play.png" alt="p" id="next_play"></button></li>
       </ul>
       <article>
 

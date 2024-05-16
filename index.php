@@ -9,15 +9,15 @@ session_start();
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="icon1.png" type="image/x-icon">
+    <link rel="icon" href="images/icon1.png" type="image/x-icon">
     <title>Videos 4 Free</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <header>
-        <a href="index.php"><img src="logo.png" alt="Logo" id="logo"></a>
-        <img src="menu.png" alt="Menu" id="menu">
+        <a href="index.php"><img src="images/logo.png" alt="Logo" id="logo"></a>
+        <img src="images/menu.png" alt="Menu" id="menu">
         <nav class="desktop_menu">
             <ul>
                 <li><a href="index.php">Home</a></li>
@@ -111,8 +111,8 @@ session_start();
                 $conn->close();
                 ?>
                 <div id="buttons">
-                    <button id="previous"><img src="play.png" alt="p" id="previous_play"></button>
-                    <button id="next"><img src="play.png" alt="p" id="next_play"></button>
+                    <button id="previous"><img src="images/play.png" alt="p" id="previous_play"></button>
+                    <button id="next"><img src="images/play.png" alt="p" id="next_play"></button>
                 </div>
             </article>
         </section>
