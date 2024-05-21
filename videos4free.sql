@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2024 at 03:33 PM
+-- Generation Time: May 21, 2024 at 09:21 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -72,12 +72,12 @@ CREATE TABLE `featured_videos` (
 --
 
 INSERT INTO `featured_videos` (`id`, `title`, `description`, `video_url`, `thumbnail_url`, `category`, `is_featured`) VALUES
-(1, 'Wednesday', 'The Ball Scene', 'Wednesday_Addams.mp4', 'WA1.jpg', 'Action/Thriller', 1),
-(2, 'Peaky Blinders', 'Description for Peaky Blinders video', 'Peaky_Blinders.mp4', 'PA1.jpg', 'Drama', 1),
-(3, 'Video 2', 'Description for Video 2', 'video2.mp4', 'V2.jpg', 'Miscellaneous', 1),
-(4, 'Breaking Bad', 'Description for Breaking Bad video', 'Breaking_Bad.mp4', 'BB1.jpg', 'Drama', 1),
-(5, 'Bojack Horseman', 'Description for Bojack Horseman video', 'Bojack_Horseman.mp4', 'BH1.jpg', 'Animation', 1),
-(6, 'Infinity War', 'Description for Infinity War video', 'Infinity_War.mp4', 'IW1.jpg', 'Action', 1);
+(1, 'Wednesday', 'The ball scene', 'videos/Wednesday_Addams.mp4', 'images/WA1.jpg', 'e', 1),
+(2, 'Peaky Blinders', 'Description for Peaky Blinders video', 'videos/Peaky_Blinders.mp4', 'images/PA1.jpg', 'Drama', 1),
+(3, 'Video 2', 'Description for Video 2', 'videos/video2.mp4', 'images/V2.jpg', 'Miscellaneous', 1),
+(4, 'Breaking Bad', 'Description for Breaking Bad video', 'videos/Breaking_Bad.mp4', 'images/BB1.jpg', 'Drama', 1),
+(5, 'Bojack Horseman', 'bb', 'videos/Bojack_Horseman.mp4', 'images/BH1.jpg', 'testjava', 1),
+(6, 'Infinity War', 'Description for Infinity War video', 'videos/Infinity_War.mp4', 'images/IW1.jpg', 'Action', 1);
 
 -- --------------------------------------------------------
 
@@ -101,12 +101,12 @@ CREATE TABLE `movies` (
 --
 
 INSERT INTO `movies` (`id`, `title`, `description`, `release_year`, `director`, `genre`, `rating`, `thumbnail_url`) VALUES
-(1, 'Spider-Man', 'incredible', 1999, 'Tom', 'Action', 8.0, 'spider.jpg'),
-(2, 'Harry Potter', NULL, NULL, NULL, NULL, NULL, 'harry.jpg'),
-(3, 'Avengers: Infinity War', NULL, NULL, NULL, NULL, NULL, 'infinity.jpg'),
-(4, 'Mario', NULL, NULL, NULL, NULL, NULL, 'mario.jpg'),
-(5, 'Hunger Games', NULL, NULL, NULL, NULL, NULL, 'hunger.jpg'),
-(6, 'Lion King', NULL, NULL, NULL, NULL, NULL, 'lion.jpg');
+(1, 'Spider-Man', 'incroyable', 2020, 'bob', 'Action', 8.0, 'images/spider.jpg'),
+(2, 'Harry Potter', NULL, NULL, NULL, NULL, NULL, 'images/harry.jpg'),
+(3, 'Avengers: Infinity War', NULL, NULL, NULL, NULL, NULL, 'images/infinity.jpg'),
+(4, 'Mario', NULL, NULL, NULL, NULL, NULL, 'images/mario.jpg'),
+(5, 'Hunger Games', NULL, NULL, NULL, NULL, NULL, 'images/hunger.jpg'),
+(6, 'Lion King', NULL, NULL, NULL, NULL, NULL, 'images/lion.jpg');
 
 -- --------------------------------------------------------
 
@@ -130,12 +130,12 @@ CREATE TABLE `tv_series` (
 --
 
 INSERT INTO `tv_series` (`id`, `title`, `description`, `start_year`, `end_year`, `creator`, `genre`, `thumbnail_url`) VALUES
-(1, 'Sheldon', 'Description for Sheldon TV series', 2007, NULL, 'Creators', 'Comedy', 'sheldon.jpg'),
-(2, 'The Witcher', 'Description for The Witcher TV series', 2019, NULL, 'Creators', 'Fantasy', 'witcher.jpg'),
-(3, 'NCIS', 'Description for NCIS TV series', NULL, NULL, 'Creators', 'Crime', 'ncis.jpg'),
-(4, 'Rick and Morty', 'Description for Rick and Morty TV series', 2013, NULL, 'Creators', 'Animation', 'rick.jpg'),
-(5, 'Brooklyn Nine-Nine', 'Description for Brooklyn Nine-Nine TV series', 2013, NULL, 'Creators', 'Comedy', 'b99.jpg'),
-(6, 'The Boys', 'Description for The Boys TV series', 2019, NULL, 'Creators', 'Action', 'boys.jpg');
+(1, 'Sheldon', 'Young Sheldon', NULL, NULL, 'Creators', 'Slice of life', 'images/sheldon.jpg'),
+(2, 'The Witcher', 'Description for The Witcher TV series', 2019, NULL, 'Creators', 'Fantasy', 'images/witcher.jpg'),
+(3, 'NCIS', 'Description for NCIS TV series', NULL, NULL, 'Creators', 'Crime', 'images/ncis.jpg'),
+(4, 'Rick and Morty', 'Description for Rick and Morty TV series', 2013, NULL, 'Creators', 'Animation', 'images/rick.jpg'),
+(5, 'Brooklyn Nine-Nine', 'Description for Brooklyn Nine-Nine TV series', 2013, NULL, 'Creators', 'Comedy', 'images/b99.jpg'),
+(6, 'The Boys', 'Description for The Boys TV series', 2019, NULL, 'Creators', 'Action', 'images/boys.jpg');
 
 -- --------------------------------------------------------
 
@@ -224,19 +224,19 @@ ALTER TABLE `contact_submissions`
 -- AUTO_INCREMENT for table `featured_videos`
 --
 ALTER TABLE `featured_videos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `movies`
 --
 ALTER TABLE `movies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tv_series`
 --
 ALTER TABLE `tv_series`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
