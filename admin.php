@@ -1,9 +1,9 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
+/*if (!isset($_SESSION['username'])) {
     header('Location: login.php');
     exit;
-}
+}  change to ask for is admin to have 1 if u want to connect  */ 
 
 $servername = "localhost";
 $username = "root";
@@ -21,11 +21,11 @@ $query_featured_videos = "SELECT * FROM featured_videos";
 $result_featured_videos = $conn->query($query_featured_videos);
 
 // Fetch movies
-$query_movies = "SELECT id, title, description, release_year AS year, director AS creator, genre FROM movies";
+$query_movies = "SELECT * FROM movies";
 $result_movies = $conn->query($query_movies);
 
 // Fetch TV series
-$query_tv_series = "SELECT id, title, description, start_year AS year, creator, genre FROM tv_series";
+$query_tv_series = "SELECT * FROM tv_series";
 $result_tv_series = $conn->query($query_tv_series);
 
 ?>
@@ -56,9 +56,7 @@ $result_tv_series = $conn->query($query_tv_series);
             <th>Index</th>
             <th>Title</th>
             <th>Description</th>
-            <th>Year</th>
-            <th>Creator/Director</th>
-            <th>Genre</th>
+            <th>Category</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -70,6 +68,7 @@ $result_tv_series = $conn->query($query_tv_series);
                 echo "<td>" . $index_featured_videos++ . "</td>";
                 echo "<td>" . $row["title"] . "</td>";
                 echo "<td>" . $row["description"] . "</td>";
+                echo "<td>" . $row["category"] . "</td>";
                 echo "<td><a href='modify.php?id=" . $row['id'] . "'><img src='images/edit.png' alt='edit icon' width='32px'></a></td>";
                 echo "<td><a href='delete.php?id=" . $row['id'] . "'><img src='images/delete.png' alt='delete icon' width='32px'></a></td>";
                 echo "</tr>";
@@ -87,9 +86,9 @@ $result_tv_series = $conn->query($query_tv_series);
             <th>Index</th>
             <th>Title</th>
             <th>Description</th>
-            <th>Year</th>
-            <th>Creator/Director</th>
+            <th>Director</th>
             <th>Genre</th>
+            <th>Rating</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -103,9 +102,9 @@ $result_tv_series = $conn->query($query_tv_series);
                 echo "<td>" . $index_movies++ . "</td>";
                 echo "<td>" . $row["title"] . "</td>";
                 echo "<td>" . $row["description"] . "</td>";
-                echo "<td>" . $row["year"] . "</td>";
-                echo "<td>" . $row["creator"] . "</td>";
+                echo "<td>" . $row["director"] . "</td>";
                 echo "<td>" . $row["genre"] . "</td>";
+                echo "<td>" . $row["rating"] . "</td>";
                 echo "<td><a href='modify.php?id=" . $row['id'] . "'><img src='images/edit.png' alt='edit icon' width='32px'></a></td>";
                 echo "<td><a href='delete.php?id=" . $row['id'] . "'><img src='images/delete.png' alt='delete icon' width='32px'></a></td>";
                 echo "</tr>";
@@ -124,8 +123,7 @@ $result_tv_series = $conn->query($query_tv_series);
             <th>Index</th>
             <th>Title</th>
             <th>Description</th>
-            <th>Year</th>
-            <th>Creator/Director</th>
+            <th>Creator</th>
             <th>Genre</th>
             <th>Edit</th>
             <th>Delete</th>
@@ -138,7 +136,6 @@ $result_tv_series = $conn->query($query_tv_series);
                 echo "<td>" . $index_tv_series++ . "</td>";
                 echo "<td>" . $row["title"] . "</td>";
                 echo "<td>" . $row["description"] . "</td>";
-                echo "<td>" . $row["year"] . "</td>";
                 echo "<td>" . $row["creator"] . "</td>";
                 echo "<td>" . $row["genre"] . "</td>";
                 echo "<td><a href='modify.php?id=" . $row['id'] . "'><img src='images/edit.png' alt='edit icon' width='32px'></a></td>";

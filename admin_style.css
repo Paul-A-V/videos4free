@@ -131,6 +131,35 @@ input[type="submit"]:hover {
     background-color: #333333;
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+    /* Ensures no double borders */
+    margin-bottom: 20px;
+    border: 1px solid #FFFFFF;
+    /* Adds border to each table */
+}
+
+th,
+td {
+    padding: 10px;
+    /* Adds spacing between table headers */
+    border: 1px solid #FFFFFF;
+    /* Adds border to each cell */
+    text-align: left;
+    /* Aligns text to the left */
+}
+
+th {
+    background-color: #333333;
+    /* Adds background color to headers */
+}
+
+td {
+    background-color: #444444;
+    /* Adds background color to cells */
+}
+
 /* Media queries */
 @media only screen and (max-width: 767px) {
     /* Add your responsive styles here */
