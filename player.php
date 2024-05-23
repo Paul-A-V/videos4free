@@ -19,24 +19,23 @@ session_start();
     <a href="index.html"><img src="images/logo.png" alt="Logo" id="logo"></a>
     <img src="images/menu.png" alt="Menu" id="menu">
     <nav class="desktop_menu">
-        <ul>
-            <li><a href="index.php">Home</a></li>
-            <li><a href="tv_series.php">TV Series</a></li>
-            <li><a href="movies.php">Movies</a></li>
-            <li><a href="contact.php">Contact</a></li>
-            <?php
-                if (isset($_SESSION['username'])) {
-                    echo "<li><a href='logout.php'>Logout</a></li>";
-                }
-                else {
-                    echo  "<li><a href='login.php'>Login</a></li>";
-                    }
-                ?>
-                <li><a href="search.php">Search</a></li>
-        </ul>
+      <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="tv_series.php">TV Series</a></li>
+        <li><a href="movies.php">Movies</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <?php
+        if (isset($_SESSION['username'])) {
+          echo "<li><a href='logout.php'>Logout</a></li>";
+        } else {
+          echo "<li><a href='login.php'>Login</a></li>";
+        }
+        ?>
+        <li><a href="search.php">Search</a></li>
+      </ul>
     </nav>
     <nav id="mobile_menu">
-        <img src="images/close.png" id="Close" alt="404closenotfound">
+      <img src="images/close.png" id="Close" alt="404closenotfound">
       <ul>
         <li class="mobile_ui"><a href="index.php">Home</a></li>
         <li class="mobile_ui"><a href="tv_series.php">TV Series</a></li>
@@ -44,16 +43,16 @@ session_start();
         <li class="mobile_ui"><a href="contact.php">Contact</a></li>
         <li class="mobile_ui"><a href="search.php">Search</a></li>
         <?php
-                if (isset($_SESSION['username'])) {
-                    //add mylist/bookmark
-                    echo "<li class='mobile_ui'><a href='logout.php'>Logout</a></li>";
-                } else {
-                    //add mylist/bookmark same here even logged out/as guest
-                    echo "<li class='mobile_ui'><a href='login.php'>Login</a></li>";
-                }
-                ?>
+        if (isset($_SESSION['username'])) {
+          //add mylist/bookmark
+          echo "<li class='mobile_ui'><a href='logout.php'>Logout</a></li>";
+        } else {
+          //add mylist/bookmark same here even logged out/as guest
+          echo "<li class='mobile_ui'><a href='login.php'>Login</a></li>";
+        }
+        ?>
       </ul>
-      </nav>
+    </nav>
   </header>
   <main>
     <section>
@@ -86,15 +85,20 @@ session_start();
 
         <h3>Add a comment:</h3>
 
-        <form id="comment-form">
-          <label for="name">Name:</label>
-          <input type="text" id="name" required>
+        <?php
+        if (isset($_SESSION['username'])) {
+          echo '
+          <form id="comment-form">
 
-          <label for="message">Comment:</label>
-          <textarea id="message" required></textarea>
+            <label for="message">Comment:</label>
+            <textarea id="message" required></textarea>
 
-          <button type="submit" id="sub">Submit</button>
-        </form>
+            <button type="submit" id="sub">Submit</button>
+          </form>';
+        } else {
+          echo '<p>You must be <a href="login.php">logged in</a> to comment.</p>';
+        }
+        ?>
       </article>
     </section>
   </main>

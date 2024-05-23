@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2024 at 08:22 AM
+-- Generation Time: May 23, 2024 at 08:59 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -29,10 +29,6 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `video_id` int(11) DEFAULT NULL,
-  `movie_id` int(11) DEFAULT NULL,
-  `tv_series_id` int(11) DEFAULT NULL,
   `comment` text NOT NULL,
   `comment_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -166,11 +162,7 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `registration_date`,
 -- Indexes for table `comments`
 --
 ALTER TABLE `comments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `video_id` (`video_id`),
-  ADD KEY `movie_id` (`movie_id`),
-  ADD KEY `tv_series_id` (`tv_series_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `contact_submissions`
@@ -250,10 +242,7 @@ ALTER TABLE `users`
 -- Constraints for table `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`video_id`) REFERENCES `featured_videos` (`id`),
-  ADD CONSTRAINT `comments_ibfk_3` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`),
-  ADD CONSTRAINT `comments_ibfk_4` FOREIGN KEY (`tv_series_id`) REFERENCES `tv_series` (`id`);
+  ADD CONSTRAINT `fk_id` FOREIGN KEY (`id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
