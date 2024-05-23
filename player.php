@@ -1,5 +1,36 @@
 <?php
 session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $comment = $_POST['comment'];
+
+  // Establish database connection
+  $servername = "localhost";
+  $username = "root"; // Replace with your MySQL username
+  $password = ""; // Replace with your MySQL password
+  $dbname = "videos4free"; // Replace with your database name
+
+  $conn = new mysqli($servername, $username, $password, $dbname);
+
+  // Check connection
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  $sql = "SELECT * FROM comments";
+  $result = $conn->query($sql);
+
+  // Prepare SQL statement
+  $stmt = $conn->prepare("INSERT INTO comments (comment) VALUES (?)");
+  $stmt->bind_param("s", $comment);
+
+  // Execute SQL statement
+  $stmt->execute();
+  // Close statement and database connection
+  $stmt->close();
+  $conn->close();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -69,32 +100,33 @@ session_start();
       </ul>
       <article>
 
-        <h3>Comments:</h3>
+      <h3>Comments:</h3>
 
-        <p class="comment">
-          <span class="author">John</span>
-          <span class="timestamp">May 17, 2023</span>
-          Wowzers, omg so good!
-        </p>
-
-        <p class="comment">
-          <span class="author">Jane</span>
-          <span class="timestamp">May 18, 2023</span>
-          Goooooooooooooood!!!!
-        </p>
-
+<?php
+// Display fetched comments
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo "<p class='comment'>
+                <span class='author'>Anonymous</span>
+                <span class='timestamp'>" . $row['comment_date'] . "</span>
+                " . $row['comment'] . "
+              </p>";
+    }
+} else {
+    echo "No comments yet.";
+}
+?>
         <h3>Add a comment:</h3>
 
         <?php
         if (isset($_SESSION['username'])) {
           echo '
-          <form id="comment-form">
-
-            <label for="message">Comment:</label>
-            <textarea id="message" required></textarea>
-
-            <button type="submit" id="sub">Submit</button>
-          </form>';
+          <form id="comment-form" method="post">
+    <label for="message">Comment:</label>
+    <textarea id="message" name="comment" required></textarea>
+    <button type="submit" id="sub">Submit</button>
+</form>
+';
         } else {
           echo '<p>You must be <a href="login.php">logged in</a> to comment.</p>';
         }
