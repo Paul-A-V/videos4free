@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2024 at 09:21 AM
+-- Generation Time: May 23, 2024 at 08:22 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -118,8 +118,6 @@ CREATE TABLE `tv_series` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text DEFAULT NULL,
-  `start_year` int(11) DEFAULT NULL,
-  `end_year` int(11) DEFAULT NULL,
   `creator` varchar(255) DEFAULT NULL,
   `genre` varchar(100) DEFAULT NULL,
   `thumbnail_url` varchar(255) DEFAULT NULL
@@ -129,13 +127,13 @@ CREATE TABLE `tv_series` (
 -- Dumping data for table `tv_series`
 --
 
-INSERT INTO `tv_series` (`id`, `title`, `description`, `start_year`, `end_year`, `creator`, `genre`, `thumbnail_url`) VALUES
-(1, 'Sheldon', 'Young Sheldon', NULL, NULL, 'Creators', 'Slice of life', 'images/sheldon.jpg'),
-(2, 'The Witcher', 'Description for The Witcher TV series', 2019, NULL, 'Creators', 'Fantasy', 'images/witcher.jpg'),
-(3, 'NCIS', 'Description for NCIS TV series', NULL, NULL, 'Creators', 'Crime', 'images/ncis.jpg'),
-(4, 'Rick and Morty', 'Description for Rick and Morty TV series', 2013, NULL, 'Creators', 'Animation', 'images/rick.jpg'),
-(5, 'Brooklyn Nine-Nine', 'Description for Brooklyn Nine-Nine TV series', 2013, NULL, 'Creators', 'Comedy', 'images/b99.jpg'),
-(6, 'The Boys', 'Description for The Boys TV series', 2019, NULL, 'Creators', 'Action', 'images/boys.jpg');
+INSERT INTO `tv_series` (`id`, `title`, `description`, `creator`, `genre`, `thumbnail_url`) VALUES
+(1, 'Sheldon', 'young sheldon', 'bob', 'slice of life', 'images/sheldon.jpg'),
+(2, 'The Witcher', 'Description for The Witcher TV series', 'Creators', 'Fantasy', 'images/witcher.jpg'),
+(3, 'NCIS', 'Description for NCIS TV series', 'Creators', 'Crime', 'images/ncis.jpg'),
+(4, 'Rick and Morty', 'Description for Rick and Morty TV series', 'Creators', 'Animation', 'images/rick.jpg'),
+(5, 'Brooklyn Nine-Nine', 'Description for Brooklyn Nine-Nine TV series', 'Creators', 'Comedy', 'images/b99.jpg'),
+(6, 'The Boys', 'Description for The Boys TV series', 'Creators', 'Action', 'images/boys.jpg');
 
 -- --------------------------------------------------------
 
@@ -224,7 +222,7 @@ ALTER TABLE `contact_submissions`
 -- AUTO_INCREMENT for table `featured_videos`
 --
 ALTER TABLE `featured_videos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `movies`
