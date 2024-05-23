@@ -3,36 +3,34 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $comment = $_POST['comment'];
+  $username = $_SESSION['username'];
 
-  // Establish database connection
-  $servername = "localhost";
-  $username = "root"; // Replace with your MySQL username
-  $password = ""; // Replace with your MySQL password
-  $dbname = "videos4free"; // Replace with your database name
-
-  $conn = new mysqli($servername, $username, $password, $dbname);
-
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
-
-  $sql = "SELECT * FROM comments";
-  $result = $conn->query($sql);
 
   // Prepare SQL statement
-  $stmt = $conn->prepare("INSERT INTO comments (comment) VALUES (?)");
-  $stmt->bind_param("s", $comment);
+  $stmt = $conn->prepare("INSERT INTO comments (username, comment) VALUES (?, ?)");
+  $stmt->bind_param("ss", $username, $comment);
 
   // Execute SQL statement
   $stmt->execute();
   // Close statement and database connection
   $stmt->close();
-  $conn->close();
 }
 
 ?>
+<?php
+  // Establish database connection
+  $servername = "localhost";
+  $username_db = "root"; // Replace with your MySQL username
+  $password = ""; // Replace with your MySQL password
+  $dbname = "videos4free"; // Replace with your database name
 
+  $conn = new mysqli($servername, $username_db, $password, $dbname);
+  // Check connection
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+  
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,10 +102,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php
 // Display fetched comments
+$sql = "SELECT username, comment, comment_date FROM comments";
+$result = $conn->query($sql);
+
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo "<p class='comment'>
-                <span class='author'>Anonymous</span>
+                <span class='author'>" . $row['username'] . "</span>
                 <span class='timestamp'>" . $row['comment_date'] . "</span>
                 " . $row['comment'] . "
               </p>";
