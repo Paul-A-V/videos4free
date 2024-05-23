@@ -36,7 +36,7 @@ session_start();
             </ul>
         </nav>
         <nav id="mobile_menu">
-            <img src="close.png" id="Close" alt="404closenotfound">
+            <img src="images/close.png" id="Close" alt="404closenotfound">
             <ul>
                 <li class="mobile_ui"><a href="index.php">Home</a></li>
                 <li class="mobile_ui"><a href="tv_series.php">TV Series</a></li>
