@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2024 at 04:49 PM
+-- Generation Time: May 27, 2024 at 07:59 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -39,7 +39,12 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `comment`, `comment_date`, `username`) VALUES
-(18, 'dasds', '2024-05-23 07:31:08', 'testuser');
+(18, 'dasds', '2024-05-23 07:31:08', 'testuser'),
+(19, 't', '2024-05-27 14:53:18', 'test'),
+(20, 'ds', '2024-05-27 14:53:20', 'test'),
+(21, 'ds', '2024-05-27 14:53:41', 'test'),
+(22, 'd', '2024-05-27 17:51:45', 'test'),
+(23, 'hi', '2024-05-27 17:52:00', 'paul');
 
 -- --------------------------------------------------------
 
@@ -62,7 +67,7 @@ CREATE TABLE `featured_videos` (
 --
 
 INSERT INTO `featured_videos` (`id`, `title`, `description`, `video_url`, `thumbnail_url`, `category`, `is_featured`) VALUES
-(1, 'Wednesday', 'The ball scene', 'videos/Wednesday_Addams.mp4', 'images/WA1.jpg', 'e', 1),
+(1, 'Wednesday', 'The ball scene', 'videos/Wednesday_Addams.mp4', 'images/WA1.jpg', 'eeeff', 1),
 (2, 'Peaky Blinders', 'Description for Peaky Blinders video', 'videos/Peaky_Blinders.mp4', 'images/PA1.jpg', 'Drama', 1),
 (3, 'Video 2', 'Description for Video 2', 'videos/video2.mp4', 'images/V2.jpg', 'Miscellaneous', 1),
 (4, 'Breaking Bad', 'Description for Breaking Bad video', 'videos/Breaking_Bad.mp4', 'images/BB1.jpg', 'Drama', 1),
@@ -91,9 +96,9 @@ CREATE TABLE `movies` (
 --
 
 INSERT INTO `movies` (`id`, `title`, `description`, `release_year`, `director`, `genre`, `rating`, `thumbnail_url`) VALUES
-(1, 'Spider-Man', 'incroyable', 2020, 'bob', 'Action', 8.0, 'images/spider.jpg'),
-(2, 'Harry Potter', NULL, NULL, NULL, NULL, NULL, 'images/harry.jpg'),
-(3, 'Avengers: Infinity War', NULL, NULL, NULL, NULL, NULL, 'images/infinity.jpg'),
+(1, 'Spider-Man', 'incroyable', 2022, 'bob', 'Action', 5.0, 'images/spider.jpg'),
+(2, 'Harry Potter', 'youre a lizard', 2323, 'beb', 'ef', 4.0, 'images/harry.jpg'),
+(3, 'Avengers: Infinity War', 'asdads', 232131, 'dasdadsd', 'dfsdsf', 6.0, 'images/infinity.jpg'),
 (4, 'Mario', NULL, NULL, NULL, NULL, NULL, 'images/mario.jpg'),
 (5, 'Hunger Games', NULL, NULL, NULL, NULL, NULL, 'images/hunger.jpg'),
 (6, 'Lion King', NULL, NULL, NULL, NULL, NULL, 'images/lion.jpg');
@@ -118,10 +123,10 @@ CREATE TABLE `tv_series` (
 --
 
 INSERT INTO `tv_series` (`id`, `title`, `description`, `creator`, `genre`, `thumbnail_url`) VALUES
-(1, 'Sheldon', 'young sheldon', 'bob', 'slice of life', 'images/sheldon.jpg'),
+(1, 'Sheldon', 'young sheldoner', 'bober', 'slice of lifer', 'images/sheldon.jpg'),
 (2, 'The Witcher', 'Description for The Witcher TV series', 'Creators', 'Fantasy', 'images/witcher.jpg'),
 (3, 'NCIS', 'Description for NCIS TV series', 'Creators', 'Crime', 'images/ncis.jpg'),
-(4, 'Rick and Morty', 'Description for Rick and Morty TV series', 'Creators', 'Animation', 'images/rick.jpg'),
+(4, 'Rick and Morty', 'Description for Rick and Morty TV seriese', 'Creators', 'Animation', 'images/rick.jpg'),
 (5, 'Brooklyn Nine-Nine', 'Description for Brooklyn Nine-Nine TV series', 'Creators', 'Comedy', 'images/b99.jpg'),
 (6, 'The Boys', 'Description for The Boys TV series', 'Creators', 'Action', 'images/boys.jpg');
 
@@ -134,19 +139,19 @@ INSERT INTO `tv_series` (`id`, `title`, `description`, `creator`, `genre`, `thum
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `registration_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `is_admin` tinyint(1) DEFAULT 0,
-  `confirmation_code` varchar(100) DEFAULT NULL
+  `is_admin` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `registration_date`, `is_admin`, `confirmation_code`) VALUES
-(1, 'testuser', 'test@example.com', 'testpassword', '2024-05-02 18:48:07', 0, NULL);
+INSERT INTO `users` (`id`, `username`, `password`, `registration_date`, `is_admin`) VALUES
+(1, 'testuser', 'testpassword', '2024-05-02 18:48:07', 0),
+(16, 'test', 'test', '2024-05-27 14:51:42', 1),
+(17, 'paul', 'parola', '2024-05-27 17:41:25', 0);
 
 --
 -- Indexes for dumped tables
@@ -190,31 +195,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `featured_videos`
 --
 ALTER TABLE `featured_videos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `movies`
 --
 ALTER TABLE `movies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tv_series`
 --
 ALTER TABLE `tv_series`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
