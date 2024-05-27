@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2024 at 07:59 PM
+-- Generation Time: May 27, 2024 at 08:50 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -69,7 +69,7 @@ CREATE TABLE `featured_videos` (
 INSERT INTO `featured_videos` (`id`, `title`, `description`, `video_url`, `thumbnail_url`, `category`, `is_featured`) VALUES
 (1, 'Wednesday', 'The ball scene', 'videos/Wednesday_Addams.mp4', 'images/WA1.jpg', 'eeeff', 1),
 (2, 'Peaky Blinders', 'Description for Peaky Blinders video', 'videos/Peaky_Blinders.mp4', 'images/PA1.jpg', 'Drama', 1),
-(3, 'Video 2', 'Description for Video 2', 'videos/video2.mp4', 'images/V2.jpg', 'Miscellaneous', 1),
+(3, 'Video 2', 'Description for Video 2', 'videos/video2.mp4', 'images/V2.jpg', 'Miscellaneouss', 1),
 (4, 'Breaking Bad', 'Description for Breaking Bad video', 'videos/Breaking_Bad.mp4', 'images/BB1.jpg', 'Drama', 1),
 (5, 'Bojack Horseman', 'bb', 'videos/Bojack_Horseman.mp4', 'images/BH1.jpg', 'testjava', 1),
 (6, 'Infinity War', 'Description for Infinity War video', 'videos/Infinity_War.mp4', 'images/IW1.jpg', 'Action', 1);
@@ -123,7 +123,7 @@ CREATE TABLE `tv_series` (
 --
 
 INSERT INTO `tv_series` (`id`, `title`, `description`, `creator`, `genre`, `thumbnail_url`) VALUES
-(1, 'Sheldon', 'young sheldoner', 'bober', 'slice of lifer', 'images/sheldon.jpg'),
+(1, 'Sheldon', 'young sheldoner', 'bober', 'slice of lifere', 'images/sheldon.jpg'),
 (2, 'The Witcher', 'Description for The Witcher TV series', 'Creators', 'Fantasy', 'images/witcher.jpg'),
 (3, 'NCIS', 'Description for NCIS TV series', 'Creators', 'Crime', 'images/ncis.jpg'),
 (4, 'Rick and Morty', 'Description for Rick and Morty TV seriese', 'Creators', 'Animation', 'images/rick.jpg'),
@@ -219,7 +219,7 @@ ALTER TABLE `tv_series`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
