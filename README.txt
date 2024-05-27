@@ -60,5 +60,8 @@ script.js - mostly hides mobile menu if the user is on desktop and vice versa
 
 css - all css files should be pretty self explanatory 
 
+Github link in case files are corrupted somehow:
+https://github.com/Paul-A-V/videos4free
+
 tldr:
 streaming website 
