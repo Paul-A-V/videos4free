@@ -9,7 +9,7 @@ if (!isset($_GET['id'])) {
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "videos4free"; // Update to match your database name
+$dbname = "videos4free";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

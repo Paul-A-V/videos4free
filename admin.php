@@ -1,10 +1,6 @@
 <?php
-if (isset($_SESSION['username']) || $_SESSION['is_admin'] = 1) {
-    session_start();
-}
-else {
-    exit;
-}
+session_start();
+
 
 $servername = "localhost";
 $username = "root";

@@ -16,10 +16,9 @@ $success_message = "";
 
 if (isset($_POST['submit'])) {
     $username = $_POST['username'];
-    $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $query = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
+    $query = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
 
     if ($conn->query($query) === TRUE) {
         $success_message = "<h2 class='success-message'>Registration successful!</h2>";
@@ -55,10 +54,6 @@ $conn->close();
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" name="username" id="username" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" name="email" id="email" required>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>

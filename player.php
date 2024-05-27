@@ -1,10 +1,10 @@
 <?php
 session_start();
-  // Establish database connection
+
   $servername = "localhost";
-  $username_db = "root"; // Replace with your MySQL username
-  $password = ""; // Replace with your MySQL password
-  $dbname = "videos4free"; // Replace with your database name
+  $username_db = "root";
+  $password = "";
+  $dbname = "videos4free";
 
   $conn = new mysqli($servername, $username_db, $password, $dbname);
   // Check connection
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // Execute SQL statement
   $stmt->execute();
-  // Close statement and database connection
+  // Close statement
   $stmt->close();
 }
 
@@ -120,11 +120,11 @@ if ($result->num_rows > 0) {
         if (isset($_SESSION['username'])) {
           echo '
           <form id="comment-form" method="post">
-    <label for="message">Comment:</label>
-    <textarea id="message" name="comment" required></textarea>
-    <button type="submit" id="sub">Submit</button>
-</form>
-';
+            <label for="message">Comment:</label>
+            <textarea id="message" name="comment" required></textarea>
+            <button type="submit" id="sub">Submit</button>
+          </form>
+          ';
         } else {
           echo '<p>You must be <a href="login.php">logged in</a> to comment.</p>';
         }
