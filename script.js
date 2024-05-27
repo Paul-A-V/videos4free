@@ -2,18 +2,18 @@
 var menu = document.getElementById('menu');
 var mmenu = document.getElementById('mobile_menu');
 var close = document.getElementById('Close');
-menu.addEventListener('click', function() {
-	mmenu.style.display = "block";
+menu.addEventListener('click', function () {
+  mmenu.style.display = "block";
 });
 close.addEventListener('click', function () {
-	mmenu.style.display = "none";
+  mmenu.style.display = "none";
 })
 
 var list = document.querySelectorAll('li a');
 for (el of list) {
-	el.addEventListener("click", function() {
-		mmenu.style.display = "none";
-	})
+  el.addEventListener("click", function () {
+    mmenu.style.display = "none";
+  })
 }
 
 
@@ -72,3 +72,9 @@ function showPreviousVideo() {
 document.getElementById("next").addEventListener("click", showNextVideo);
 document.getElementById("previous").addEventListener("click", showPreviousVideo);
 
+function showFields() {
+  var type = document.getElementById('type').value;
+  document.getElementById('featured_fields').style.display = type === 'featured_videos' ? 'block' : 'none';
+  document.getElementById('movie_fields').style.display = type === 'movies' ? 'block' : 'none';
+  document.getElementById('tv_series_fields').style.display = type === 'tv_series' ? 'block' : 'none';
+}

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modify Data</title>
+    <!-- Link to your CSS file -->
     <link rel="stylesheet" href="admin_style.css">
 </head>
 <body>
@@ -23,12 +24,11 @@ if (isset($_POST['modify_submit'])) {
     $id = $_POST['id'];
     $title = $_POST['title'];
     $description = $_POST['description'];
-    $video_url = $_POST['video_url'];
+    $creator = $_POST['creator'];
+    $genre = $_POST['genre'];
     $thumbnail_url = $_POST['thumbnail_url'];
-    $category = $_POST['category'];
-    $is_featured = isset($_POST['is_featured']) ? 1 : 0;
 
-    $query = "UPDATE featured_videos SET title='$title', description='$description', video_url='$video_url', thumbnail_url='$thumbnail_url', category='$category', is_featured=$is_featured WHERE id=$id";
+    $query = "UPDATE tv_series SET title='$title', description='$description', creator='$creator', genre='$genre', thumbnail_url='$thumbnail_url' WHERE id=$id";
 
     $result = mysqli_query($conn, $query);
 
@@ -41,13 +41,13 @@ if (isset($_POST['modify_submit'])) {
 } elseif (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Fetch data for the selected id from featured_videos table
-    $video_sql = "SELECT * FROM featured_videos WHERE id=$id";
-    $video_result = $conn->query($video_sql);
+    // Fetch data for the selected id from featured_tv_seriess table
+    $tv_series_sql = "SELECT * FROM tv_series WHERE id=$id";
+    $tv_series_result = $conn->query($tv_series_sql);
 
-    if ($video_result) {
-        if ($video_result->num_rows > 0) {
-            $row = $video_result->fetch_assoc();
+    if ($tv_series_result) {
+        if ($tv_series_result->num_rows > 0) {
+            $row = $tv_series_result->fetch_assoc();
 ?>
             <div id="page-wrap">
                 <header>
@@ -71,21 +71,18 @@ if (isset($_POST['modify_submit'])) {
                                 <textarea name="description" id="description"><?php echo $row['description']; ?></textarea>
                             </div>
                             <div>
-                                <label for="video_url">Video URL:</label>
-                                <input type="text" name="video_url" id="video_url" value="<?php echo $row['video_url']; ?>">
+                                <label for="creator">creator:</label>
+                                <input type="text" name="creator" id="creator" value="<?php echo $row['creator']; ?>">
+                            </div>
+                            <div>
+                                <label for="genre">genre:</label>
+                                <input type="text" name="genre" id="genre" value="<?php echo $row['genre']; ?>">
                             </div>
                             <div>
                                 <label for="thumbnail_url">Thumbnail URL:</label>
                                 <input type="text" name="thumbnail_url" id="thumbnail_url" value="<?php echo $row['thumbnail_url']; ?>">
                             </div>
-                            <div>
-                                <label for="category">Category:</label>
-                                <input type="text" name="category" id="category" value="<?php echo $row['category']; ?>">
-                            </div>
-                            <div>
-                                <label for="is_featured">Is Featured:</label>
-                                <input type="checkbox" name="is_featured" id="is_featured" <?php if ($row['is_featured']) echo "checked"; ?>>
-                            </div>
+
                             <div id="send">
                                 <input type="submit" name="modify_submit" value="Modify">
                             </div>

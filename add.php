@@ -1,14 +1,11 @@
 <?php
-/*session_start();
-if (!isset($_SESSION['username'])) {
-    header('Location: login.php');
-    exit;
-}*/
+session_start();
+
 
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "videos4free"; // Update to match your database name
+$dbname = "videos4free";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -19,21 +16,29 @@ if ($conn->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
     $description = $_POST['description'];
-    $year = $_POST['year'];
-    $creator = $_POST['creator'];
-    $genre = $_POST['genre'];
-
-    // Insert into the appropriate table based on the selected type
     $type = $_POST['type'];
+
     switch ($type) {
         case 'featured_videos':
-            $insert_query = "INSERT INTO featured_videos (title, description) VALUES ('$title', '$description')";
+            $video_url = $_POST['video_url'];
+            $thumbnail_url = $_POST['thumbnail_url'];
+            $category = $_POST['category'];
+            $is_featured = isset($_POST['is_featured']) ? 1 : 0;
+            $insert_query = "INSERT INTO featured_videos (title, description, video_url, thumbnail_url, category, is_featured) VALUES ('$title', '$description', '$video_url', '$thumbnail_url', '$category', '$is_featured')";
             break;
         case 'movies':
-            $insert_query = "INSERT INTO movies (title, description, release_year, director, genre) VALUES ('$title', '$description', '$year', '$creator', '$genre')";
+            $release_year = $_POST['release_year'];
+            $thumbnail_url = $_POST['thumbnail_url'];
+            $director = $_POST['director'];
+            $rating = $_POST['rating'];
+            $genre = $_POST['genre'];
+            $insert_query = "INSERT INTO movies (title, description, release_year, thumbnail_url, director, genre, rating) VALUES ('$title', '$description', '$release_year', '$thumbnail_url', '$director', '$genre', '$rating')";
             break;
         case 'tv_series':
-            $insert_query = "INSERT INTO tv_series (title, description, start_year, creator, genre) VALUES ('$title', '$description', '$year', '$creator', '$genre')";
+            $thumbnail_url = $_POST['thumbnail_url'];
+            $creator = $_POST['creator'];
+            $genre = $_POST['genre'];
+            $insert_query = "INSERT INTO tv_series (title, description, thumbnail_url, creator, genre) VALUES ('$title', '$description', '$thumbnail_url', '$creator', '$genre')";
             break;
         default:
             echo "Invalid type";
@@ -46,8 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error: " . $insert_query . "<br>" . $conn->error;
     }
 }
-?>
 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,35 +61,78 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="add_style.css" rel="stylesheet">
     <title>Add Content</title>
+    <script src="script.js"></script>
 </head>
-<body>
+<body onload="showFields()">
     <header>
-    <h2>Add Content</h2>
-    <a href="admin.php">Admin home</a>
-</header>
+        <h2>Add Content</h2>
+        <a href="admin.php">Admin home</a>
+    </header>
     <form method="post">
         <label for="type">Type:</label>
-        <select name="type" id="type">
+        <select name="type" id="type" onchange="showFields()">
             <option value="featured_videos">Featured Video</option>
             <option value="movies">Movie</option>
             <option value="tv_series">TV Series</option>
         </select>
         <br><br>
+
+        <!-- Common fields -->
         <label for="title">Title:</label>
-        <input type="text" id="title" name="title">
+        <input type="text" id="title" name="title" required>
         <br><br>
         <label for="description">Description:</label>
-        <textarea id="description" name="description"></textarea>
+        <textarea id="description" name="description" required></textarea>
         <br><br>
-        <label for="year">Year:</label>
-        <input type="number" id="year" name="year">
-        <br><br>
-        <label for="creator">Creator/Director:</label>
-        <input type="text" id="creator" name="creator">
-        <br><br>
-        <label for="genre">Genre:</label>
-        <input type="text" id="genre" name="genre">
-        <br><br>
+
+        <!-- Featured Videos fields -->
+        <div id="featured_fields" style="display: none;">
+            <label for="featured_video_url">Video URL:</label>
+            <input type="text" id="featured_video_url" name="video_url">
+            <br><br>
+            <label for="featured_thumbnail_url">Thumbnail URL:</label>
+            <input type="text" id="featured_thumbnail_url" name="thumbnail_url">
+            <br><br>
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category">
+            <br><br>
+            <label for="is_featured">Is Featured:</label>
+            <input type="checkbox" id="is_featured" name="is_featured">
+            <br><br>
+        </div>
+
+        <!-- Movies fields -->
+        <div id="movie_fields" style="display: none;">
+            <label for="movie_release_year">Release Year:</label>
+            <input type="text" id="movie_release_year" name="release_year">
+            <br><br>
+            <label for="movie_thumbnail_url">Thumbnail URL:</label>
+            <input type="text" id="movie_thumbnail_url" name="thumbnail_url">
+            <br><br>
+            <label for="director">Director:</label>
+            <input type="text" id="director" name="director">
+            <br><br>
+            <label for="rating">Rating:</label>
+            <input type="text" id="rating" name="rating">
+            <br><br>
+            <label for="movie_genre">Genre:</label>
+            <input type="text" id="movie_genre" name="genre">
+            <br><br>
+        </div>
+
+        <!-- TV Series fields -->
+        <div id="tv_series_fields" style="display: none;">
+            <label for="tv_series_thumbnail_url">Thumbnail URL:</label>
+            <input type="text" id="tv_series_thumbnail_url" name="thumbnail_url">
+            <br><br>
+            <label for="creator">Creator:</label>
+            <input type="text" id="creator" name="creator">
+            <br><br>
+            <label for="tv_series_genre">Genre:</label>
+            <input type="text" id="tv_series_genre" name="genre">
+            <br><br>
+        </div>
+
         <input type="submit" value="Submit">
     </form>
 </body>
