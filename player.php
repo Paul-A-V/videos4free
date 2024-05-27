@@ -70,10 +70,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <li class="mobile_ui"><a href="search.php">Search</a></li>
         <?php
         if (isset($_SESSION['username'])) {
-          //add mylist/bookmark
+          //tbd,add mylist/bookmark
           echo "<li class='mobile_ui'><a href='logout.php'>Logout</a></li>";
         } else {
-          //add mylist/bookmark same here even logged out/as guest
+          //tbd,add mylist/bookmark same here even logged out/as guest
           echo "<li class='mobile_ui'><a href='login.php'>Login</a></li>";
         }
         ?>
@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <h3>Comments:</h3>
 
 <?php
-// Display fetched comments
+// Display comments
 $sql = "SELECT username, comment, comment_date FROM comments";
 $result = $conn->query($sql);
 

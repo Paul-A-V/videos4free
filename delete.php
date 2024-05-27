@@ -19,12 +19,12 @@ if ($conn->connect_error) {
 
 $id = $_GET['id'];
 
-// Perform deletion queries for each table based on the provided ID
+// Make deletion queries for each table based on the provided ID and we use ifs so that we dont delete from all 3 tables with id=1 for example
 $delete_featured_videos_query = "DELETE FROM featured_videos WHERE id = $id";
 $delete_movies_query = "DELETE FROM movies WHERE id = $id";
 $delete_tv_series_query = "DELETE FROM tv_series WHERE id = $id";
 
-// Execute deletion queries
+// This is used to see if something was successfully deleted,if it was redirect to admin page
 $success = false;
 
 if ($conn->query($delete_featured_videos_query) === TRUE) {

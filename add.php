@@ -12,12 +12,13 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
+// Check if the form is submitted using the POST method
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get form data
     $title = $_POST['title'];
     $description = $_POST['description'];
     $type = $_POST['type'];
-
+    // Determine the type of content and create the proper insert
     switch ($type) {
         case 'featured_videos':
             $video_url = $_POST['video_url'];
@@ -70,6 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </header>
     <form method="post">
         <label for="type">Type:</label>
+        <!-- Dropdown menu to select the type of content -->
         <select name="type" id="type" onchange="showFields()">
             <option value="featured_videos">Featured Video</option>
             <option value="movies">Movie</option>
@@ -85,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <textarea id="description" name="description" required></textarea>
         <br><br>
 
-        <!-- Featured Videos fields -->
+        <!-- Featured Videos -->
         <div id="featured_fields" style="display: none;">
             <label for="featured_video_url">Video URL:</label>
             <input type="text" id="featured_video_url" name="video_url">
@@ -101,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <br><br>
         </div>
 
-        <!-- Movies fields -->
+        <!-- Movies -->
         <div id="movie_fields" style="display: none;">
             <label for="movie_release_year">Release Year:</label>
             <input type="text" id="movie_release_year" name="release_year">
@@ -120,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <br><br>
         </div>
 
-        <!-- TV Series fields -->
+        <!-- TV Series -->
         <div id="tv_series_fields" style="display: none;">
             <label for="tv_series_thumbnail_url">Thumbnail URL:</label>
             <input type="text" id="tv_series_thumbnail_url" name="thumbnail_url">

@@ -133,38 +133,30 @@ input[type="submit"]:hover {
 
 table {
     width: 100%;
+    /* no double borders */
     border-collapse: collapse;
-    /* Ensures no double borders */
     margin-bottom: 20px;
-    border: 1px solid #FFFFFF;
     /* Adds border to each table */
+    border: 1px solid #FFFFFF;
 }
 
 th,
 td {
     padding: 10px;
-    /* Adds spacing between table headers */
     border: 1px solid #FFFFFF;
-    /* Adds border to each cell */
     text-align: left;
-    /* Aligns text to the left */
 }
 
 th {
     background-color: #333333;
-    /* Adds background color to headers */
 }
 
 td {
     background-color: #444444;
-    /* Adds background color to cells */
 }
 
-/* Media queries */
-@media only screen and (max-width: 767px) {
-    /* Add your responsive styles here */
-}
+/* Media queries 
 
-@media only screen and (min-width: 768px) {
-    /* Add your responsive styles here */
-}
+NONE,who uses a phone to administer a website?
+
+*/

@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -13,15 +12,15 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch featured videos
+// Get featured videos
 $query_featured_videos = "SELECT * FROM featured_videos";
 $result_featured_videos = $conn->query($query_featured_videos);
 
-// Fetch movies
+// Get movies
 $query_movies = "SELECT * FROM movies";
 $result_movies = $conn->query($query_movies);
 
-// Fetch TV series
+// Get TV series
 $query_tv_series = "SELECT * FROM tv_series";
 $result_tv_series = $conn->query($query_tv_series);
 
@@ -141,6 +140,7 @@ $result_tv_series = $conn->query($query_tv_series);
                 } else {
                     echo "<tr><td colspan='8'>No TV series available.</td></tr>";
                 }
+                $conn->close();
                 ?>
             </table>
         </div>

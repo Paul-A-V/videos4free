@@ -43,10 +43,10 @@ session_start();
                 <li class="mobile_ui"><a href="search.php">Search</a></li>
                 <?php
                 if (isset($_SESSION['username'])) {
-                    //add mylist/bookmark
+                    //tbd,add mylist/bookmark
                     echo "<li class='mobile_ui'><a href='logout.php'>Logout</a></li>";
                 } else {
-                    //add mylist/bookmark same here even logged out/as guest
+                    //tbd,add mylist/bookmark same here even logged out/as guest
                     echo "<li class='mobile_ui'><a href='login.php'>Login</a></li>";
                 }
                 ?>
@@ -76,12 +76,12 @@ session_start();
                     die("Connection failed: " . $conn->connect_error);
                 }
 
-                // Fetch data from the database for featured_videos
-                $sql = "SELECT * FROM featured_videos LIMIT 3"; // Select only the first 3 videos
+                // Get the first 3 videos
+                $sql = "SELECT * FROM featured_videos LIMIT 3"; 
                 $result = $conn->query($sql);
 
                 echo "<ul class='featured-videos'>";
-                // Output data of each row for featured_videos
+                // Show the videos
                 while ($row = $result->fetch_assoc()) {
                     echo "<li class='slide'><video controls poster='" . $row["thumbnail_url"] . "'>";
                     echo "<source src='" . $row["video_url"] . "' type='video/mp4'>";
@@ -91,12 +91,11 @@ session_start();
                 }
                 echo "</ul>";
 
-                // Fetch data from the database for featured_videos_2
-                $sql = "SELECT * FROM featured_videos LIMIT 3, 3"; // Select the next 3 videos (starting after first 3)
+                // Next 3 videos after the first 3
+                $sql = "SELECT * FROM featured_videos LIMIT 3, 3";
                 $result = $conn->query($sql);
 
                 echo "<ul class='featured-videos_2'>";
-                // Output data of each row for featured_videos_2
                 while ($row = $result->fetch_assoc()) {
                     echo "<li class='slide_2'><video controls poster='" . $row["thumbnail_url"] . "'>";
                     echo "<source src='" . $row["video_url"] . "' type='video/mp4'>";

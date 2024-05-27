@@ -41,10 +41,10 @@ session_start();
             <li class="mobile_ui"><a href="search.php">Search</a></li>
             <?php
                 if (isset($_SESSION['username'])) {
-                    //add mylist/bookmark
+                    //tbd,add mylist/bookmark
                     echo "<li class='mobile_ui'><a href='logout.php'>Logout</a></li>";
                 } else {
-                    //add mylist/bookmark same here even logged out/as guest
+                    //tbd,add mylist/bookmark same here even logged out/as guest
                     echo "<li class='mobile_ui'><a href='login.php'>Login</a></li>";
                 }
                 ?>
@@ -61,7 +61,6 @@ session_start();
         <p>Check out the latest movie releases:</p>
         <ul id="new_movies">
             <?php
-            // Connect to the database (replace with your database credentials)
             $servername = "localhost";
             $username = "root";
             $password = "";
@@ -69,7 +68,6 @@ session_start();
 
             $conn = new mysqli($servername, $username, $password, $dbname);
 
-            // Check connection
             if ($conn->connect_error) {
               die("Connection failed: " . $conn->connect_error);
             }
@@ -78,7 +76,7 @@ session_start();
             $sql_first_3 = "SELECT thumbnail_url FROM movies LIMIT 3";
             $result_first_3 = $conn->query($sql_first_3);
 
-            // Output first three thumbnails dynamically
+            // Show the first 3 just like in index
             if ($result_first_3->num_rows > 0) {
                 while ($row = $result_first_3->fetch_assoc()) {
                     echo '<li><a href="player.php"><img src="' . $row["thumbnail_url"] . '" alt="Movie Thumbnail"></a></li>';
@@ -87,8 +85,6 @@ session_start();
                 echo "0 results";
             }
 
-            // Close connection
-            $conn->close();
             ?>
         </ul>
     </section>
@@ -98,19 +94,11 @@ session_start();
         <p>Check out some of our popular movies:</p>
         <ul id="popular_movies">
             <?php
-            // Connect to the database (replace with your database credentials)
-            $conn = new mysqli($servername, $username, $password, $dbname);
 
-            // Check connection
-            if ($conn->connect_error) {
-              die("Connection failed: " . $conn->connect_error);
-            }
-
-            // Query to fetch next three thumbnail URLs for movies starting from the fourth row
+            // Query to get the next 3 after the first 3
             $sql_next_3 = "SELECT thumbnail_url FROM movies LIMIT 3 OFFSET 3";
             $result_next_3 = $conn->query($sql_next_3);
-
-            // Output next three thumbnails dynamically
+            // Display them
             if ($result_next_3->num_rows > 0) {
                 while ($row = $result_next_3->fetch_assoc()) {
                     echo '<li><a href="player.php"><img src="' . $row["thumbnail_url"] . '" alt="Movie Thumbnail"></a></li>';

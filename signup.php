@@ -15,8 +15,8 @@ if ($conn->connect_error) {
 $success_message = "";
 
 if (isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = htmlspecialchars($_POST['username']);
+    $password = htmlspecialchars($_POST['password']);
 
     $query = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
 

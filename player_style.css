@@ -1,45 +1,55 @@
 /* Default styles */
-* { /* makes the whole page fit properly regardless of browser */
+* {
+  /* makes the whole page fit properly regardless of browser */
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body { /* font and background stuff, not much to say here */
-  font-family: 'Roboto', sans-serif; /* yes im using sans serif, looks good to me */
+body {
+  /* font and background stuff, not much to say here */
+  font-family: 'Roboto', sans-serif;
+  /* yes im using sans serif, looks good to me */
   line-height: 1.5;
   color: #FFFFFF;
-  background-color: rgb(30,30,30);
+  background-color: rgb(30, 30, 30);
 }
 
-header { /* just basic background stuff for header */
+header {
+  /* just basic background stuff for header */
   background-color: #FF5733;
   padding: 10px;
   text-align: center;
 }
 
-nav ul { /* makes the nav items in a row */
+nav ul {
+  /* makes the nav items in a row */
   list-style: none;
   display: flex;
   justify-content: center;
 }
 
-nav li { /* puts some space between nav items */
+nav li {
+  /* puts some space between nav items */
   margin-right: 20px;
 }
 
-a { /* makes the links to other pages look good */
+a {
+  /* makes the links to other pages look good */
   text-decoration: none;
   color: #FFFFFF;
 }
 
-nav a:hover { /* makes the mouse change color when hovering links to other pages, look cool */
+nav a:hover {
+  /* makes the mouse change color when hovering links to other pages, look cool */
   color: #333333;
 }
+
 video {
   width: 80%;
   margin-left: 10%;
 }
+
 #menu {
   width: 50px;
   height: 50px;
@@ -55,7 +65,7 @@ video {
   margin: 10% auto;
 }
 
-#mobile_menu{
+#mobile_menu {
   display: none;
 }
 
@@ -67,15 +77,15 @@ video {
 }
 
 #player_buttons button {
-    padding: 10px 25px;
-    background-color: #FF5733;
-    border: none;
-    border-radius: 5px;
-  }
+  padding: 10px 25px;
+  background-color: #FF5733;
+  border: none;
+  border-radius: 5px;
+}
 
 #previous {
-    margin-right: 5px;
-  }
+  margin-right: 5px;
+}
 
 #previous_play {
   transform: rotate(180deg);
@@ -84,7 +94,7 @@ video {
 
 #next_play {
   width: 25px;
-  }
+}
 
 form input[type="text"],
 form textarea {
@@ -96,7 +106,7 @@ form textarea {
   background-color: #F2F2F2;
 }
 
-form input[type="search"]{
+form input[type="search"] {
   border: none;
   border-radius: 5px;
 }
@@ -122,40 +132,41 @@ article {
 }
 
 .author {
-      font-weight: bold;
-      display: block;
-    }
+  font-weight: bold;
+  display: block;
+}
 
 .timestamp {
-      font-size: 0.8em;
-      color: #777;
-      display: block;
-    }
+  font-size: 0.8em;
+  color: #777;
+  display: block;
+}
 
 .comment {
-      margin-bottom: 10px;
-      display: block;
-    }
+  margin-bottom: 10px;
+  display: block;
+}
 
 #sub {
-      background-color:#FF5733; ;
-    }
+  background-color: #FF5733;
+  ;
+}
 
 /* Media queries */
 @media only screen and (max-width: 767px) {
 
-  #mobile_menu{
-  position: fixed;
-  top:0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.95);
-  z-index: 99;
+  #mobile_menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 99;
   }
 
   .desktop_menu {
-  display: none;
+    display: none;
   }
 
   header {
@@ -175,27 +186,29 @@ article {
   }
 
   li.mobile_ui {
-  margin-left: 15px;
-  padding: 10px;
-  border: solid;
-  border-left: none;
-  border-right: none;
-  border-width: 2px;
+    margin-left: 15px;
+    padding: 10px;
+    border: solid;
+    border-left: none;
+    border-right: none;
+    border-width: 2px;
   }
 
   li.mobile_ui:last-child {
-  border-bottom: solid 2px;
+    border-bottom: solid 2px;
   }
 
-  li.mobile_ui + li.mobile_ui {
-  border-top: none; /* remove top border between adjacent li items */
+  li.mobile_ui+li.mobile_ui {
+    border-top: none;
+    /* remove top border between adjacent li items */
   }
 
   video {
     width: 100%;
     margin-left: 0;
   }
-    #player_buttons button {
+
+  #player_buttons button {
     padding: 10px 25px;
     background-color: #FF5733;
     border: none;
@@ -204,26 +217,27 @@ article {
   }
 
 
-#previous {
+  #previous {
     margin-right: 5px;
   }
 
-#previous_play {
-  width: 25px;
-}
-
-#next_play {
-  width: 25px;
+  #previous_play {
+    width: 25px;
   }
 
-#player_buttons {
-  margin: 0% 0%;
+  #next_play {
+    width: 25px;
+  }
+
+  #player_buttons {
+    margin: 0% 0%;
   }
 }
 
-@media only screen and (min-width: 768px){ /* mobile menu to not show on desktop   */
+@media only screen and (min-width: 768px) {
+
+  /* mobile menu to not show on desktop   */
   #menu {
     display: none;
   }
 }
-

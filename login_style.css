@@ -93,18 +93,14 @@ button[type="submit"]:hover {
 
 .welcome-message a {
     color: #FFA500;
-    /* Orange color */
     text-decoration: none;
-    /* Remove underline from the link */
 }
 
 .welcome-message a:hover {
     text-decoration: underline;
-    /* Add underline on hover */
 }
 
 #signup a {
     color: #FF5733;
     text-decoration: underline;
-    /* Orange color */
 }

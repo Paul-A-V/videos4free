@@ -42,6 +42,7 @@
         <?php
         if (isset($_POST['submit'])) {
             $search_input = $_POST['search_input'];
+            // union makes it so i only need 1 query for both tables,just need the same amount of rows from both tables
             $query = "SELECT id, title, description, genre, thumbnail_url,'movie' as type FROM movies WHERE title LIKE '%$search_input%'
                       UNION
                       SELECT id, title, description, genre, thumbnail_url,'tv_series' as type FROM tv_series WHERE title LIKE '%$search_input%'";
@@ -75,6 +76,7 @@
                 }
             }
         }
+        $conn->close(); 
         ?>
         </div>
     </section>

@@ -41,7 +41,7 @@ if (isset($_POST['modify_submit'])) {
 } elseif (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Fetch data for the selected id from featured_videos table
+    // Get/fetch data for the selected id from featured_videos table
     $video_sql = "SELECT * FROM featured_videos WHERE id=$id";
     $video_result = $conn->query($video_sql);
 
@@ -101,6 +101,7 @@ if (isset($_POST['modify_submit'])) {
         echo "Error: " . $conn->error;
     }
 }
+$conn->close();
 ?>
 </body>
 </html>

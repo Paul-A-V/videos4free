@@ -41,8 +41,8 @@ $conn = new mysqli($servername, $username, $password, $dbname);
             </div>
             <?php
             if (isset($_POST['submit'])) {
-                $username = $_POST['username'];
-                $password = $_POST['password'];
+                $username = htmlspecialchars($_POST['username']);
+                $password = htmlspecialchars($_POST['password']);
             
                 $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
             

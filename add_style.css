@@ -10,7 +10,6 @@ body {
     color: #FFFFFF;
     background-color: rgb(30, 30, 30);
     text-align: center;
-    /* Center align all text */
 }
 
 header {
@@ -40,10 +39,8 @@ nav a:hover {
 main {
     max-width: 800px;
     margin: 0 auto;
-    /* Center the main content horizontally */
     padding: 20px;
     text-align: left;
-    /* Reset text-align for main content */
 }
 
 h1,
@@ -115,7 +112,6 @@ input[type="submit"]:hover {
 .centered-content {
     margin: 0 auto;
     text-align: center;
-    /* Center align the content inside the container */
 }
 
 .add-button {
@@ -140,14 +136,10 @@ a {
 
 a:hover {
     color: black;
-    /* Change color of "a" elements when hovered over */
 }
 
-/* Media queries */
-@media only screen and (max-width: 767px) {
-    /* Add your responsive styles here */
-}
+/* Media queries
 
-@media only screen and (min-width: 768px) {
-    /* Add your responsive styles here */
-}
+We dont do that here.
+
+*/

@@ -35,7 +35,7 @@ if (isset($_POST['modify_submit'])) {
         echo "Error: " . mysqli_error($conn);
     } else {
         echo "<h2>Update successful!</h2>";
-        echo "<p>Back to <a href='admin.php'>content admin</a></p>"; // Changed link to admin.php
+        echo "<p>Back to <a href='admin.php'>content admin</a></p>";
     }
 } elseif (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -97,6 +97,7 @@ if (isset($_POST['modify_submit'])) {
         echo "Error: " . $conn->error;
     }
 }
+$conn->close();
 ?>
 </body>
 </html>

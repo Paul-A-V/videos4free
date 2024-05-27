@@ -72,6 +72,7 @@ function showPreviousVideo() {
 document.getElementById("next").addEventListener("click", showNextVideo);
 document.getElementById("previous").addEventListener("click", showPreviousVideo);
 
+// used by add.php
 function showFields() {
   var type = document.getElementById('type').value;
   document.getElementById('featured_fields').style.display = type === 'featured_videos' ? 'block' : 'none';

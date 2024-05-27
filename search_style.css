@@ -200,18 +200,13 @@ button[type="submit"]:hover {
 
 #search_input {
     width: 200px;
-    /* Adjust the width as needed */
     padding: 8px;
-    /* Adjust padding to match the login input */
     border-radius: 5px;
-    /* Match the border radius with other inputs */
 }
 
 .centered-content {
     margin: 0 auto;
-    /* This centers the container */
     text-align: center;
-    /* This centers the content inside the container */
 }
 
 
