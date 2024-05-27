@@ -23,7 +23,6 @@ session_start();
                 <li><a href="index.php">Home</a></li>
                 <li><a href="tv_series.php">TV Series</a></li>
                 <li><a href="movies.php">Movies</a></li>
-                <li><a href="contact.php">Contact</a></li>
                 <?php
                 if (isset($_SESSION['username'])) {
                     echo "<li><a href='logout.php'>Logout</a></li>";
@@ -41,7 +40,6 @@ session_start();
                 <li class="mobile_ui"><a href="index.php">Home</a></li>
                 <li class="mobile_ui"><a href="tv_series.php">TV Series</a></li>
                 <li class="mobile_ui"><a href="movies.php">Movies</a></li>
-                <li class="mobile_ui"><a href="contact.php">Contact</a></li>
                 <li class="mobile_ui"><a href="search.php">Search</a></li>
                 <?php
                 if (isset($_SESSION['username'])) {

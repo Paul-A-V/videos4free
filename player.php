@@ -1,5 +1,17 @@
 <?php
 session_start();
+  // Establish database connection
+  $servername = "localhost";
+  $username_db = "root"; // Replace with your MySQL username
+  $password = ""; // Replace with your MySQL password
+  $dbname = "videos4free"; // Replace with your database name
+
+  $conn = new mysqli($servername, $username_db, $password, $dbname);
+  // Check connection
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+  
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $comment = $_POST['comment'];
@@ -17,20 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
-<?php
-  // Establish database connection
-  $servername = "localhost";
-  $username_db = "root"; // Replace with your MySQL username
-  $password = ""; // Replace with your MySQL password
-  $dbname = "videos4free"; // Replace with your database name
 
-  $conn = new mysqli($servername, $username_db, $password, $dbname);
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
-  
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,7 +51,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <li><a href="index.php">Home</a></li>
         <li><a href="tv_series.php">TV Series</a></li>
         <li><a href="movies.php">Movies</a></li>
-        <li><a href="contact.php">Contact</a></li>
         <?php
         if (isset($_SESSION['username'])) {
           echo "<li><a href='logout.php'>Logout</a></li>";
@@ -69,7 +67,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <li class="mobile_ui"><a href="index.php">Home</a></li>
         <li class="mobile_ui"><a href="tv_series.php">TV Series</a></li>
         <li class="mobile_ui"><a href="movies.php">Movies</a></li>
-        <li class="mobile_ui"><a href="contact.php">Contact</a></li>
         <li class="mobile_ui"><a href="search.php">Search</a></li>
         <?php
         if (isset($_SESSION['username'])) {

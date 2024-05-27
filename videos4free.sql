@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2024 at 09:48 AM
+-- Generation Time: May 27, 2024 at 04:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -40,20 +40,6 @@ CREATE TABLE `comments` (
 
 INSERT INTO `comments` (`id`, `comment`, `comment_date`, `username`) VALUES
 (18, 'dasds', '2024-05-23 07:31:08', 'testuser');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `contact_submissions`
---
-
-CREATE TABLE `contact_submissions` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `message` text NOT NULL,
-  `submission_time` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -173,12 +159,6 @@ ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `contact_submissions`
---
-ALTER TABLE `contact_submissions`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `featured_videos`
 --
 ALTER TABLE `featured_videos`
@@ -211,12 +191,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `comments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- AUTO_INCREMENT for table `contact_submissions`
---
-ALTER TABLE `contact_submissions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `featured_videos`
