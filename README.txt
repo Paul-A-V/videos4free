@@ -19,7 +19,7 @@ movies.php - shows 3 by 3 movie thumbnails that redirect to player.php
            - has a functional mobile menu
            - has more more columns than tv_series in the database but its otherwise similar to it
            
-tv_series.php - shows 3 by 3 movie thumbnails that redirect to player.php
+tv_series.php - shows 3 by 3 series thumbnails that redirect to player.php
               - contain links to all other pages except admin
               - has a functional mobile menu 
 
