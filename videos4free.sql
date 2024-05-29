@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2024 at 07:33 PM
+-- Generation Time: May 29, 2024 at 08:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -43,7 +43,9 @@ INSERT INTO `comments` (`id`, `comment`, `comment_date`, `username`, `user_id`) 
 (18, 'dasds', '2024-05-23 07:31:08', 'testuser', 1),
 (23, 'hi', '2024-05-27 17:52:00', 'paul', 17),
 (45, 'aloha', '2024-05-29 17:32:53', 'beb', 22),
-(46, 'what a video', '2024-05-29 17:33:10', 'beb', 22);
+(46, 'what a video', '2024-05-29 17:33:10', 'beb', 22),
+(47, 'baz', '2024-05-29 18:12:46', 'test', 16),
+(48, 'cookies', '2024-05-29 18:14:17', 'paul', 17);
 
 -- --------------------------------------------------------
 
@@ -101,6 +103,25 @@ INSERT INTO `movies` (`id`, `title`, `description`, `release_year`, `director`, 
 (4, 'Mario', NULL, NULL, NULL, NULL, NULL, 'images/mario.jpg'),
 (5, 'Hunger Games', NULL, NULL, NULL, NULL, NULL, 'images/hunger.jpg'),
 (6, 'Lion King', NULL, NULL, NULL, NULL, NULL, 'images/lion.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `remember_me`
+--
+
+CREATE TABLE `remember_me` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `token` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `remember_me`
+--
+
+INSERT INTO `remember_me` (`id`, `user_id`, `token`) VALUES
+(4, 17, 'd8c4f7d165bdeea09348ab25c0e345ab');
 
 -- --------------------------------------------------------
 
@@ -176,6 +197,14 @@ ALTER TABLE `movies`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `remember_me`
+--
+ALTER TABLE `remember_me`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_token` (`token`),
+  ADD KEY `fk_user_id` (`user_id`);
+
+--
 -- Indexes for table `tv_series`
 --
 ALTER TABLE `tv_series`
@@ -195,7 +224,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `featured_videos`
@@ -208,6 +237,12 @@ ALTER TABLE `featured_videos`
 --
 ALTER TABLE `movies`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `remember_me`
+--
+ALTER TABLE `remember_me`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tv_series`
@@ -230,6 +265,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `comments`
   ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `remember_me`
+--
+ALTER TABLE `remember_me`
+  ADD CONSTRAINT `fk_user_remember` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

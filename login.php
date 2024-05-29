@@ -6,9 +6,83 @@ $dbname = "videos4free";
 
 $conn = new mysqli($servername, $username_db, $password_db, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
+}
+
+session_start();
+
+function generateToken() {
+    return bin2hex(random_bytes(16)); 
+}
+
+if (isset($_POST['submit'])) {
+    $username = htmlspecialchars($_POST['username']);
+    $password = htmlspecialchars($_POST['password']);
+
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username=? AND password=?");
+    $stmt->bind_param("ss", $username, $password);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        session_start();
+        $_SESSION['username'] = $username;
+
+        // Check if "Remember Me" is selected
+        if (isset($_POST['remember_me'])) {
+            $token = generateToken();
+            $user_id = $row['id']; 
+            setcookie('remember_token', $token, time() + (86400 * 30), "/"); // Set cookie to expire in 30 days
+            // Store the token
+            $stmt = $conn->prepare("INSERT INTO remember_me (user_id, token) VALUES (?, ?)");
+            $stmt->bind_param("is", $user_id, $token);
+            $stmt->execute();
+            $stmt->close();
+        }
+
+        header("Location: index.php");
+        exit;
+    } else {
+        $error_message = "Invalid username or password!";
+    }
+
+    $stmt->close();
+}
+
+// Attempt to log in using remember me token
+if (isset($_COOKIE['remember_token'])) {
+    $token = $_COOKIE['remember_token'];
+    $stmt = $conn->prepare("SELECT user_id FROM remember_me WHERE token = ?");
+    $stmt->bind_param("s", $token);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $user_id = $row['user_id'];
+        // Retrieve username from user_id
+        $stmt = $conn->prepare("SELECT username FROM users WHERE id = ?");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $username = $row['username'];
+            // Log in user
+            session_start();
+            $_SESSION['username'] = $username;
+            header("Location: index.php");
+            exit;
+        } else {
+            echo "Error: Unable to retrieve username for user_id: $user_id";
+        }
+    } else {
+        echo "Error: No user found with remember me token: $token";
+    }
+    $stmt->close();
 }
 ?>
 
@@ -41,32 +115,15 @@ if ($conn->connect_error) {
                 <input type="password" name="password" id="password" required>
             </div>
             <div class="form-group">
+                <input type="checkbox" name="remember_me" id="remember_me">
+                <label for="remember_me">Remember Me</label>
+            </div>
+            <div class="form-group">
                 <button type="submit" name="submit">Login</button>
             </div>
-            <?php
-            if (isset($_POST['submit'])) {
-                $username = htmlspecialchars($_POST['username']);
-                $password = htmlspecialchars($_POST['password']);
-            
-                $stmt = $conn->prepare("SELECT * FROM users WHERE username=? AND password=?");
-                $stmt->bind_param("ss", $username, $password);
-                
-                $stmt->execute();
-                
-                $result = $stmt->get_result();
-                
-                if ($result->num_rows > 0) {
-                    session_start();
-                    $_SESSION['username'] = $username;
-                    echo "<h2 class='success-message'>Login successful!</h2>";
-                    header("refresh:1;url=index.php");
-                } else {
-                    echo "<h2 class='error-message'>Invalid username or password!</h2>";
-                }
-                
-                $stmt->close();
-            }
-            ?>
+            <?php if (isset($error_message)) : ?>
+                <h2 class='error-message'><?php echo $error_message; ?></h2>
+            <?php endif; ?>
         </form>
     </section>
     <div id="signup">
