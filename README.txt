@@ -7,9 +7,6 @@ An admin page to perform CRUD operations, a search page, user authentication, si
 Highly probable changes that will be finished until exam:
 Changing all queries to prepared statements on pages with input. - done
 
-Possible changes that might be finished until exam:
-Bookmark list, with cookies for guest that dont have accounts.
-
 Generaly what each file has:
 index.php - shows 3 by 3 videos from table and contain links to all other pages except admin
           - has a functional mobile menu 
@@ -26,6 +23,7 @@ tv_series.php - shows 3 by 3 series thumbnails that redirect to player.php
 login.php - contains loging in page and a link to signup to create new accounts
           - everytime you logout it redirects here
           - only requires username and password
+          - uses cookies to store user credentials if user selects remember me option
 
 logout.php - simple logout
            - redirects to login.php  
