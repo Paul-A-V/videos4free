@@ -6,80 +6,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="icon1.png" type="image/x-icon">
     <title>Search</title>
-    <link rel="stylesheet" href="search_style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <?php
+    session_start();
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "videos4free";
 
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
     ?>
-<div id="page-wrap">
-    <header id="page">
-        <nav>
+
+    <header>
+        <a href="index.php"><img src="images/logo.png" alt="Logo" id="logo"></a>
+        <img src="images/menu.png" alt="Menu" id="menu">
+        <nav class="desktop_menu">
             <ul>
                 <li><a href="index.php">Home</a></li>
+                <li><a href="tv_series.php">TV Series</a></li>
+                <li><a href="movies.php">Movies</a></li>
+                <?php
+                    if (isset($_SESSION['username'])) {
+                        echo "<li><a href='logout.php'>Logout</a></li>";
+                    } else {
+                        echo  "<li><a href='login.php'>Login</a></li>";
+                    }
+                ?>
+                <li><a href="search.php">Search</a></li>
+            </ul>
+        </nav>
+        <nav id="mobile_menu">
+            <img src="images/close.png" id="Close" alt="404closenotfound">
+            <ul>
+                <li class="mobile_ui"><a href="index.php">Home</a></li>
+                <li class="mobile_ui"><a href="tv_series.php">TV Series</a></li>
+                <li class="mobile_ui"><a href="movies.php">Movies</a></li>
+                <li class="mobile_ui"><a href="search.php">Search</a></li>
+                <?php
+                    if (isset($_SESSION['username'])) {
+                        echo "<li class='mobile_ui'><a href='logout.php'>Logout</a></li>";
+                    } else {
+                        echo "<li class='mobile_ui'><a href='login.php'>Login</a></li>";
+                    }
+                ?>
             </ul>
         </nav>
     </header>
 
-    <section id="main">
-        <article>
-            <header>
-                <h1>Search for Movies and TV Series</h1>
-            </header>
-            <br>
-            <div class="centered-content">
-            <form action="search.php" id="search" method="post">
-                <label for="search_input">Search for anything:</label>
-                <input type="text" name="search_input" id="search_input" value="">
-                <input type="submit" name="submit" value="Search">
-            </form>
-        </article>
-        <?php
-        if (isset($_POST['submit'])) {
-            $search_input = $_POST['search_input'];
-            // union makes it so i only need 1 query for both tables,just need the same amount of rows from both tables
-            $query = "SELECT id, title, description, genre, thumbnail_url,'movie' as type FROM movies WHERE title LIKE '%$search_input%'
-                      UNION
-                      SELECT id, title, description, genre, thumbnail_url,'tv_series' as type FROM tv_series WHERE title LIKE '%$search_input%'";
-            $result = mysqli_query($conn, $query);
+    <div id="page-wrap">
+        <section id="main">
+            <article>
+                <header>
+                    <h1>Search for Movies and TV Series</h1>
+                </header>
+                <br>
+                <div class="centered-content">
+                <form action="search.php" id="search" method="post">
+                    <label for="search_input">Search for anything:</label>
+                    <input type="text" name="search_input" id="search_input" value="">
+                    <input type="submit" name="submit" value="Search">
+                </form>
+            </article>
+            <?php
+            if (isset($_POST['submit'])) {
+                $search_input = $_POST['search_input'];
+                // Union query for both tables
+                $stmt = $conn->prepare("
+                    SELECT id, title, description, genre, thumbnail_url, 'movie' AS type 
+                    FROM movies 
+                    WHERE title LIKE ?
+                    UNION
+                    SELECT id, title, description, genre, thumbnail_url, 'tv_series' AS type 
+                    FROM tv_series 
+                    WHERE title LIKE ?
+                ");
+                $search_param = "%$search_input%";
+                $stmt->bind_param("ss", $search_param, $search_param);
+                $stmt->execute();
+                $result = $stmt->get_result();
 
-            if (!$result) {
-                echo "Error: " . mysqli_error($conn);
-            } else {
-                if (mysqli_num_rows($result) == 0) {
-                    echo "<h2>No results found.</h2>";
+                if (!$result) {
+                    echo "Error: " . $stmt->error;
                 } else {
-                    ?>
-                    <article class="centered-content">
-                        <p><strong>Found <?php echo mysqli_num_rows($result); ?> result(s)</strong></p>
+                    if ($result->num_rows == 0) {
+                        echo "<h2>No results found.</h2>";
+                    } else {
+                        echo "<article class='centered-content'>
+                                <p><strong>Found " . $result->num_rows . " result(s)</strong></p>";
 
-                        <?php
-                        while ($row = mysqli_fetch_assoc($result)) {
+                        while ($row = $result->fetch_assoc()) {
                             echo "<p>Title: " . $row['title'] . "</p>";
                             echo "<p>Description: " . $row['description'] . "</p>";
                             echo "<p>Genre: " . $row['genre'] . "</p>";
-                            echo '<a href="player.php"><img src="' . $row["thumbnail_url"] . '" alt="Movie Thumbnail"></a>';
+                            echo '<a href="player.php"><img src="' . $row["thumbnail_url"] . '" alt="Thumbnail"></a>';
                             if ($row['type'] == 'movie') {
                                 echo "<p>Type: Movie</p>";
                             } elseif ($row['type'] == 'tv_series') {
                                 echo "<p>Type: TV Series</p>";
                             }
                         }
-                        ?>
-                    </article>
-                    <?php
+                        echo "</article>";
+                    }
                 }
+                $stmt->close();
             }
-        }
-        $conn->close(); 
-        ?>
-        </div>
-    </section>
-</div>
+            $conn->close();
+            ?>
+            </div>
+        </section>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>

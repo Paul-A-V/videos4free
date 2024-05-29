@@ -220,6 +220,33 @@ form button[type="submit"]:hover {
   display: none;
 }
 
+/* Apply login button styles to the search button */
+#search input[type="submit"] {
+  background-color: #FF5733;
+  color: #FFFFFF;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#search input[type="submit"]:hover {
+  background-color: #333333;
+}
+
+#search_input {
+  width: 200px;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.centered-content {
+  margin: 0 auto;
+  text-align: center;
+}
+
+
 /* Media queries */
 @media only screen and (max-width: 767px) {
 

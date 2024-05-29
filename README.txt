@@ -5,7 +5,7 @@ What it contains (so far):
 An admin page to perform CRUD operations, a search page, user authentication, simple links to popular and new movies/series/videos and a page where users can comment on a video. 
 
 Highly probable changes that will be finished until exam:
-Changing all queries to prepared statements.
+Changing all queries to prepared statements on pages with input. - done
 
 Possible changes that might be finished until exam:
 Bookmark list, with cookies for guest that dont have accounts.
@@ -50,6 +50,7 @@ delete.php - takes item id from admin.php and checks if its a video,movie or tv 
 search.php - searches from movies and tv series and finds the closest match
            - displays title,description and genre
            - if search input is empty it displays everything from the tables 
+           - has a functional mobile menu
 
 player.php - this is where thumbnails from movies and tv series redirect to (they all redirect to the same video)
            - can comment on the video if you are logged in,displaying the username of who commented and the time it happened as well
