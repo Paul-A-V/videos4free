@@ -1,12 +1,15 @@
 <?php
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username_db = "root";
+$password_db = "";
 $dbname = "videos4free";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username_db, $password_db, $dbname);
 
-
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 ?>
 
 <!DOCTYPE html>
@@ -44,25 +47,30 @@ $conn = new mysqli($servername, $username, $password, $dbname);
                 $username = htmlspecialchars($_POST['username']);
                 $password = htmlspecialchars($_POST['password']);
             
-                $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-            
-                $result = $conn->query($query);
-            
+                $stmt = $conn->prepare("SELECT * FROM users WHERE username=? AND password=?");
+                $stmt->bind_param("ss", $username, $password);
+                
+                $stmt->execute();
+                
+                $result = $stmt->get_result();
+                
                 if ($result->num_rows > 0) {
                     session_start();
                     $_SESSION['username'] = $username;
                     echo "<h2 class='success-message'>Login successful!</h2>";
-                    header ( "refresh:1;url=index.php" );
+                    header("refresh:1;url=index.php");
                 } else {
                     echo "<h2 class='error-message'>Invalid username or password!</h2>";
                 }
+                
+                $stmt->close();
             }
             ?>
         </form>
     </section>
     <div id="signup">
-    Don't have an account? <a href="signup.php">Sign up</a> now for free!
-        </div>
+        Don't have an account? <a href="signup.php">Sign up</a> now for free!
+    </div>
 </main>
 </body>
 </html>

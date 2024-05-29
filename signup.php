@@ -2,11 +2,11 @@
 session_start();
 
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username_db = "root";
+$password_db = "";
 $dbname = "videos4free";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username_db, $password_db, $dbname);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -18,15 +18,18 @@ if (isset($_POST['submit'])) {
     $username = htmlspecialchars($_POST['username']);
     $password = htmlspecialchars($_POST['password']);
 
-    $query = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
+    $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+    $stmt->bind_param("ss", $username, $password);
 
-    if ($conn->query($query) === TRUE) {
+    if ($stmt->execute()) {
         $success_message = "<h2 class='success-message'>Registration successful!</h2>";
         $_SESSION['username'] = $username; // Setting up the session for the new user
         header("refresh:1;url=index.php"); // Redirecting to index.php after registration
     } else {
-        echo "<h2 class='error-message'>Error: " . $query . "<br>" . $conn->error . "</h2>";
+        echo "<h2 class='error-message'>Error: " . $stmt->error . "</h2>";
     }
+
+    $stmt->close();
 }
 
 $conn->close();
