@@ -55,6 +55,7 @@ search.php - searches from movies and tv series and finds the closest match
 player.php - this is where thumbnails from movies and tv series redirect to (they all redirect to the same video)
            - can comment on the video if you are logged in,displaying the username of who commented and the time it happened as well
            - has a functional mobile menu
+           - if a user account is deleted so are his comments
 
 script.js - mostly hides mobile menu if the user is on desktop and vice versa
           - last function is used by add.php to hide certain inputs depending on what table input is used
