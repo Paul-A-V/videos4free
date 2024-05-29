@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2024 at 08:50 PM
+-- Generation Time: May 29, 2024 at 07:33 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -31,20 +31,19 @@ CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
   `comment` text NOT NULL,
   `comment_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `username` varchar(50) NOT NULL
+  `username` varchar(50) NOT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `comments`
 --
 
-INSERT INTO `comments` (`id`, `comment`, `comment_date`, `username`) VALUES
-(18, 'dasds', '2024-05-23 07:31:08', 'testuser'),
-(19, 't', '2024-05-27 14:53:18', 'test'),
-(20, 'ds', '2024-05-27 14:53:20', 'test'),
-(21, 'ds', '2024-05-27 14:53:41', 'test'),
-(22, 'd', '2024-05-27 17:51:45', 'test'),
-(23, 'hi', '2024-05-27 17:52:00', 'paul');
+INSERT INTO `comments` (`id`, `comment`, `comment_date`, `username`, `user_id`) VALUES
+(18, 'dasds', '2024-05-23 07:31:08', 'testuser', 1),
+(23, 'hi', '2024-05-27 17:52:00', 'paul', 17),
+(45, 'aloha', '2024-05-29 17:32:53', 'beb', 22),
+(46, 'what a video', '2024-05-29 17:33:10', 'beb', 22);
 
 -- --------------------------------------------------------
 
@@ -67,7 +66,7 @@ CREATE TABLE `featured_videos` (
 --
 
 INSERT INTO `featured_videos` (`id`, `title`, `description`, `video_url`, `thumbnail_url`, `category`, `is_featured`) VALUES
-(1, 'Wednesday', 'The ball scene', 'videos/Wednesday_Addams.mp4', 'images/WA1.jpg', 'eeeff', 1),
+(1, 'Wednesday', 'The ball scene', 'videos/Wednesday_Addams.mp4', 'images/WA1.jpg', 'eeefff', 1),
 (2, 'Peaky Blinders', 'Description for Peaky Blinders video', 'videos/Peaky_Blinders.mp4', 'images/PA1.jpg', 'Drama', 1),
 (3, 'Video 2', 'Description for Video 2', 'videos/video2.mp4', 'images/V2.jpg', 'Miscellaneouss', 1),
 (4, 'Breaking Bad', 'Description for Breaking Bad video', 'videos/Breaking_Bad.mp4', 'images/BB1.jpg', 'Drama', 1),
@@ -140,18 +139,18 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `registration_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `is_admin` tinyint(1) DEFAULT 0
+  `registration_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `registration_date`, `is_admin`) VALUES
-(1, 'testuser', 'testpassword', '2024-05-02 18:48:07', 0),
-(16, 'test', 'test', '2024-05-27 14:51:42', 1),
-(17, 'paul', 'parola', '2024-05-27 17:41:25', 0);
+INSERT INTO `users` (`id`, `username`, `password`, `registration_date`) VALUES
+(1, 'testuser', 'testpassword', '2024-05-02 18:48:07'),
+(16, 'test', 'test', '2024-05-27 14:51:42'),
+(17, 'paul', 'parola', '2024-05-27 17:41:25'),
+(22, 'beb', 'beb', '2024-05-29 17:32:47');
 
 --
 -- Indexes for dumped tables
@@ -161,7 +160,8 @@ INSERT INTO `users` (`id`, `username`, `password`, `registration_date`, `is_admi
 -- Indexes for table `comments`
 --
 ALTER TABLE `comments`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_user_id` (`user_id`);
 
 --
 -- Indexes for table `featured_videos`
@@ -195,31 +195,41 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `featured_videos`
 --
 ALTER TABLE `featured_videos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `movies`
 --
 ALTER TABLE `movies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tv_series`
 --
 ALTER TABLE `tv_series`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

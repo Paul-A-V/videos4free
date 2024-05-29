@@ -7,6 +7,20 @@ $password = "";
 $dbname = "videos4free";
 
 $conn = new mysqli($servername, $username_db, $password, $dbname);
+//I HATE FOREIGN KEYS
+$user_id = null;
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+    $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $user_id = $row['id'];
+    }
+}
 
 // Check connection
 if ($conn->connect_error) {
@@ -19,8 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = $_SESSION['username'];
 
         // Prepare SQL statement
-        $stmt = $conn->prepare("INSERT INTO comments (username, comment) VALUES (?, ?)");
-        $stmt->bind_param("ss", $username, $comment);
+        $stmt = $conn->prepare("INSERT INTO comments (username, comment, user_id) VALUES (?, ?, ?)");
+        $stmt->bind_param("ssi", $username, $comment, $user_id);
 
         // Execute SQL statement
         $stmt->execute();
