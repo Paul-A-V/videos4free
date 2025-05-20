@@ -140,8 +140,7 @@ button.player-nav-button:disabled {
   /* Standard cursor for disabled elements */
 }
 
-/* The following old styles might be redundant or can be removed if .player-nav-button covers all needs */
-/*
+
 form input[type="text"],
 form textarea {
   width: 100%;
@@ -151,7 +150,7 @@ form textarea {
   margin-bottom: 20px;
   background-color: #F2F2F2;
 }
-*/
+
 
 form input[type="search"] {
   border: none;
@@ -172,8 +171,7 @@ form button[type="submit"]:hover {
   background-color: #333333;
 }
 
-/* Old specific button image styles - can be removed if .player-nav-button img is sufficient */
-/*
+
 #previous {
   margin-right: 5px;
 }

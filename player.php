@@ -153,13 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['comment'])) {
 </header>
 
 <main>
-    <section>
-        <?php if ($video_data && isset($video_data['title'])): ?>
-            <h1><?php echo htmlspecialchars($video_data['title']); ?></h1>
-        <?php elseif ($error_message_video): ?>
-            <h1>Error</h1>
-        <?php endif; ?>
-    </section>
+    <!-- The H1 tag displaying the video title has been removed from here -->
     <section>
         <?php if ($video_data && !empty($video_data['video_url'])): ?>
             <video controls poster="<?php echo htmlspecialchars($video_data['thumbnail_url']); ?>" width="100%">
