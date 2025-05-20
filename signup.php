@@ -16,10 +16,12 @@ $success_message = "";
 
 if (isset($_POST['submit'])) {
     $username = htmlspecialchars($_POST['username']);
-    $password = htmlspecialchars($_POST['password']);
+    $plainPassword = $_POST['password'];
+
+    $hashedPassword = password_hash($plainPassword, PASSWORD_DEFAULT);
 
     $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-    $stmt->bind_param("ss", $username, $password);
+    $stmt->bind_param("ss", $username, $hashedPassword);
 
     if ($stmt->execute()) {
         $success_message = "<h2 class='success-message'>Registration successful!</h2>";

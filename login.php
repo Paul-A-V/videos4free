@@ -13,15 +13,16 @@ if ($conn->connect_error) {
 session_start();
 
 function generateToken() {
-    return bin2hex(random_bytes(16)); 
+    return bin2hex(random_bytes(16));
 }
 
 if (isset($_POST['submit'])) {
     $username = htmlspecialchars($_POST['username']);
-    $password = htmlspecialchars($_POST['password']);
+    $plainPassword = $_POST['password']; // Get the plain text password
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE username=? AND password=?");
-    $stmt->bind_param("ss", $username, $password);
+    // Fetch the stored hashed password for the given username
+    $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
 
     $stmt->execute();
 
@@ -29,25 +30,32 @@ if (isset($_POST['submit'])) {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        session_start();
-        $_SESSION['username'] = $username;
+        $hashedPasswordFromDb = $row['password']; // Get the hashed password from the database
 
-        // Check if "Remember Me" is selected
-        if (isset($_POST['remember_me'])) {
-            $token = generateToken();
-            $user_id = $row['id']; 
-            setcookie('remember_token', $token, time() + (86400 * 30), "/"); // Set cookie to expire in 30 days
-            // Store the token
-            $stmt = $conn->prepare("INSERT INTO remember_me (user_id, token) VALUES (?, ?)");
-            $stmt->bind_param("is", $user_id, $token);
-            $stmt->execute();
-            $stmt->close();
+        // Use password_verify to check the plain password against the hash
+        if (password_verify($plainPassword, $hashedPasswordFromDb)) {
+            $_SESSION['username'] = $username;
+
+            // Check if "Remember Me" is selected
+            if (isset($_POST['remember_me'])) {
+                $token = generateToken();
+                $user_id = $row['id'];
+                setcookie('remember_token', $token, time() + (86400 * 30), "/"); // Set cookie to expire in 30 days
+                // Store or update the token
+                // Added ON DUPLICATE KEY UPDATE to handle cases where a user might already have a token
+                $stmt_token = $conn->prepare("INSERT INTO remember_me (user_id, token) VALUES (?, ?) ON DUPLICATE KEY UPDATE token = VALUES(token)");
+                $stmt_token->bind_param("is", $user_id, $token);
+                $stmt_token->execute();
+                $stmt_token->close();
+            }
+
+            header("Location: index.php");
+            exit;
+        } else {
+            $error_message = "Invalid username or password!"; // Password doesn't match
         }
-
-        header("Location: index.php");
-        exit;
     } else {
-        $error_message = "Invalid username or password!";
+        $error_message = "Invalid username or password!"; // Username not found
     }
 
     $stmt->close();
@@ -72,7 +80,6 @@ if (isset($_COOKIE['remember_token'])) {
             $row = $result->fetch_assoc();
             $username = $row['username'];
             // Log in user
-            session_start();
             $_SESSION['username'] = $username;
             header("Location: index.php");
             exit;
