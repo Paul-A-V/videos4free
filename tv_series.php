@@ -74,12 +74,12 @@ session_start();
             }
 
             // Query to fetch first three thumbnail URLs for TV series
-            $sql_first_3 = "SELECT thumbnail_url FROM tv_series LIMIT 3";
+            $sql_first_3 = "SELECT id, thumbnail_url FROM tv_series ORDER BY id DESC LIMIT 3"; // Added id and order
             $result_first_3 = $conn->query($sql_first_3);
             // then the next 3
             if ($result_first_3->num_rows > 0) {
                 while ($row = $result_first_3->fetch_assoc()) {
-                    echo '<li><a href="player.php"><img src="' . $row["thumbnail_url"] . '" alt="TV Series Thumbnail"></a></li>';
+                    echo '<li><a href="player.php?id=' . $row["id"] . '&type=tv_series"><img src="' . $row["thumbnail_url"] . '" alt="TV Series Thumbnail"></a></li>';
                 }
             } else {
                 echo "0 results";
@@ -96,12 +96,12 @@ session_start();
             <?php
 
             // same limit as index but for tv series
-            $sql_next_3 = "SELECT thumbnail_url FROM tv_series LIMIT 3 OFFSET 3";
+            $sql_next_3 = "SELECT id, thumbnail_url FROM tv_series ORDER BY id DESC LIMIT 3 OFFSET 3"; // Added id and order
             $result_next_3 = $conn->query($sql_next_3);
 
             if ($result_next_3->num_rows > 0) {
                 while ($row = $result_next_3->fetch_assoc()) {
-                    echo '<li><a href="player.php"><img src="' . $row["thumbnail_url"] . '" alt="TV Series Thumbnail"></a></li>';
+                    echo '<li><a href="player.php?id=' . $row["id"] . '&type=tv_series"><img src="' . $row["thumbnail_url"] . '" alt="TV Series Thumbnail"></a></li>';
                 }
             } else {
                 echo "0 results";

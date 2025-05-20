@@ -73,13 +73,13 @@ session_start();
             }
 
             // Query to fetch first three thumbnail URLs for movies
-            $sql_first_3 = "SELECT thumbnail_url FROM movies LIMIT 3";
+            $sql_first_3 = "SELECT id, thumbnail_url FROM movies ORDER BY release_year DESC, id DESC LIMIT 3"; // Added id and order
             $result_first_3 = $conn->query($sql_first_3);
 
             // Show the first 3 just like in index
             if ($result_first_3->num_rows > 0) {
                 while ($row = $result_first_3->fetch_assoc()) {
-                    echo '<li><a href="player.php"><img src="' . $row["thumbnail_url"] . '" alt="Movie Thumbnail"></a></li>';
+                    echo '<li><a href="player.php?id=' . $row["id"] . '&type=movie"><img src="' . $row["thumbnail_url"] . '" alt="Movie Thumbnail"></a></li>';
                 }
             } else {
                 echo "0 results";
@@ -96,12 +96,12 @@ session_start();
             <?php
 
             // Query to get the next 3 after the first 3
-            $sql_next_3 = "SELECT thumbnail_url FROM movies LIMIT 3 OFFSET 3";
+            $sql_next_3 = "SELECT id, thumbnail_url FROM movies ORDER BY release_year DESC, id DESC LIMIT 3 OFFSET 3"; // Added id and order
             $result_next_3 = $conn->query($sql_next_3);
             // Display them
             if ($result_next_3->num_rows > 0) {
                 while ($row = $result_next_3->fetch_assoc()) {
-                    echo '<li><a href="player.php"><img src="' . $row["thumbnail_url"] . '" alt="Movie Thumbnail"></a></li>';
+                    echo '<li><a href="player.php?id=' . $row["id"] . '&type=movie"><img src="' . $row["thumbnail_url"] . '" alt="Movie Thumbnail"></a></li>';
                 }
             } else {
                 echo "0 results";

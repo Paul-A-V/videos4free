@@ -28,24 +28,30 @@ if (isset($_POST['modify_submit'])) {
     $category = $_POST['category'];
     $is_featured = isset($_POST['is_featured']) ? 1 : 0;
 
-    $query = "UPDATE featured_videos SET title='$title', description='$description', video_url='$video_url', thumbnail_url='$thumbnail_url', category='$category', is_featured=$is_featured WHERE id=$id";
-
-    $result = mysqli_query($conn, $query);
-
-    if (!$result) {
-        echo "Error: " . mysqli_error($conn);
+    // Use prepared statements for UPDATE
+    $stmt_update = $conn->prepare("UPDATE featured_videos SET title=?, description=?, video_url=?, thumbnail_url=?, category=?, is_featured=? WHERE id=?");
+    if ($stmt_update) {
+        $stmt_update->bind_param("sssssii", $title, $description, $video_url, $thumbnail_url, $category, $is_featured, $id);
+        if ($stmt_update->execute()) {
+            echo "<h2>Update successful!</h2>";
+            echo "<p>Back to <a href='admin.php'>content admin</a></p>";
+        } else {
+            echo "Error updating record: " . $stmt_update->error;
+        }
+        $stmt_update->close();
     } else {
-        echo "<h2>Update successful!</h2>";
-        echo "<p>Back to <a href='admin.php'>content admin</a></p>";
+        echo "Error preparing update statement: " . $conn->error;
     }
 } elseif (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Get/fetch data for the selected id from featured_videos table
-    $video_sql = "SELECT * FROM featured_videos WHERE id=$id";
-    $video_result = $conn->query($video_sql);
+    // Use prepared statement to fetch data
+    $stmt_select = $conn->prepare("SELECT * FROM featured_videos WHERE id = ?");
+    if ($stmt_select) {
+        $stmt_select->bind_param("i", $id);
+        $stmt_select->execute();
+        $video_result = $stmt_select->get_result();
 
-    if ($video_result) {
         if ($video_result->num_rows > 0) {
             $row = $video_result->fetch_assoc();
 ?>
@@ -64,23 +70,23 @@ if (isset($_POST['modify_submit'])) {
                             <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                             <div>
                                 <label for="title">Title:</label>
-                                <input type="text" name="title" id="title" value="<?php echo $row['title']; ?>">
+                                <input type="text" name="title" id="title" value="<?php echo htmlspecialchars($row['title']); ?>">
                             </div>
                             <div>
                                 <label for="description">Description:</label>
-                                <textarea name="description" id="description"><?php echo $row['description']; ?></textarea>
+                                <textarea name="description" id="description"><?php echo htmlspecialchars($row['description']); ?></textarea>
                             </div>
                             <div>
                                 <label for="video_url">Video URL:</label>
-                                <input type="text" name="video_url" id="video_url" value="<?php echo $row['video_url']; ?>">
+                                <input type="text" name="video_url" id="video_url" value="<?php echo htmlspecialchars($row['video_url'] ?? ''); ?>">
                             </div>
                             <div>
                                 <label for="thumbnail_url">Thumbnail URL:</label>
-                                <input type="text" name="thumbnail_url" id="thumbnail_url" value="<?php echo $row['thumbnail_url']; ?>">
+                                <input type="text" name="thumbnail_url" id="thumbnail_url" value="<?php echo htmlspecialchars($row['thumbnail_url'] ?? ''); ?>">
                             </div>
                             <div>
                                 <label for="category">Category:</label>
-                                <input type="text" name="category" id="category" value="<?php echo $row['category']; ?>">
+                                <input type="text" name="category" id="category" value="<?php echo htmlspecialchars($row['category']); ?>">
                             </div>
                             <div>
                                 <label for="is_featured">Is Featured:</label>
@@ -97,8 +103,10 @@ if (isset($_POST['modify_submit'])) {
         } else {
             echo "No data found for the selected id.";
         }
+        $stmt_select->close();
     } else {
-        echo "Error: " . $conn->error;
+        // Error preparing the select statement
+        echo "Error preparing statement: " . $conn->error;
     }
 }
 $conn->close();

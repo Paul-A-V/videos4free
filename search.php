@@ -104,7 +104,7 @@
                             echo "<p>Title: " . $row['title'] . "</p>";
                             echo "<p>Description: " . $row['description'] . "</p>";
                             echo "<p>Genre: " . $row['genre'] . "</p>";
-                            echo '<a href="player.php"><img src="' . $row["thumbnail_url"] . '" alt="Thumbnail"></a>';
+                            echo '<a href="player.php?id=' . $row["id"] . '&type=' . $row["type"] . '"><img src="' . htmlspecialchars($row["thumbnail_url"]) . '" alt="Thumbnail"></a>';
                             if ($row['type'] == 'movie') {
                                 echo "<p>Type: Movie</p>";
                             } elseif ($row['type'] == 'tv_series') {

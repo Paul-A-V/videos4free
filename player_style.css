@@ -73,29 +73,75 @@ video {
   display: flex;
   justify-content: space-between;
   list-style: none;
-  margin: 0% 10%;
+  margin: 20px 10%;
+  /* Added some top/bottom margin for overall spacing */
+  padding: 0;
+  /* Reset default ul padding */
 }
 
-#player_buttons button {
-  padding: 10px 25px;
-  background-color: #FF5733;
-  border: none;
+.player-nav-button {
+  text-decoration: none;
+  padding: 10px 15px;
+  /* Adjusted padding */
   border-radius: 5px;
+  /* Consistent with other buttons */
+  display: inline-flex;
+  /* Allows image and text to sit side-by-side nicely */
+  align-items: center;
+  /* Vertically aligns items within the button */
+  gap: 8px;
+  /* Space between the image and the text */
+  border: 1px solid transparent;
+  /* Base border, can be colored by specific states */
+  font-weight: bold;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  /* Ensure font consistency */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  /* Smooth transition for hover */
 }
 
-#previous {
-  margin-right: 5px;
-}
-
-#previous_play {
-  transform: rotate(180deg);
+.player-nav-button img {
   width: 25px;
+  /* Matched your previous image size */
+  height: 25px;
+  /* Matched your previous image size */
+  vertical-align: middle;
+  /* Good for inline-flex items */
 }
 
-#next_play {
-  width: 25px;
+/* Active state (for <a> tags styled as buttons) */
+a.player-nav-button {
+  background-color: orange;
+  /* As requested */
+  color: black;
+  /* As requested */
+  border-color: orange;
+  /* Match background for a solid look */
 }
 
+a.player-nav-button:hover {
+  background-color: darkorange;
+  /* Slightly darker orange for hover */
+  border-color: darkorange;
+  color: black;
+  /* Keep text color consistent */
+}
+
+/* Disabled state (for <button> tags) */
+button.player-nav-button:disabled {
+  background-color: #555555;
+  /* A darker grey suitable for a dark theme */
+  color: #aaaaaa;
+  /* Lighter grey text for readability on dark bg */
+  border-color: #555555;
+  /* Match background */
+  cursor: not-allowed;
+  /* Standard cursor for disabled elements */
+}
+
+/* The following old styles might be redundant or can be removed if .player-nav-button covers all needs */
+/*
 form input[type="text"],
 form textarea {
   width: 100%;
@@ -105,6 +151,7 @@ form textarea {
   margin-bottom: 20px;
   background-color: #F2F2F2;
 }
+*/
 
 form input[type="search"] {
   border: none;
@@ -123,6 +170,20 @@ form button[type="submit"] {
 
 form button[type="submit"]:hover {
   background-color: #333333;
+}
+
+/* Old specific button image styles - can be removed if .player-nav-button img is sufficient */
+/*
+#previous {
+  margin-right: 5px;
+}
+
+#previous_play {
+  width: 25px;
+}
+
+#next_play {
+  width: 25px;
 }
 
 article {
@@ -151,6 +212,8 @@ article {
   background-color: #FF5733;
   ;
 }
+
+
 
 /* Media queries */
 @media only screen and (max-width: 767px) {

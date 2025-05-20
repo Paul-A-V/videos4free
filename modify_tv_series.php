@@ -25,26 +25,29 @@ if (isset($_POST['modify_submit'])) {
     $description = $_POST['description'];
     $creator = $_POST['creator'];
     $genre = $_POST['genre'];
+    $video_url = $_POST['video_url']; // Added
     $thumbnail_url = $_POST['thumbnail_url'];
 
-    $query = "UPDATE tv_series SET title='$title', description='$description', creator='$creator', genre='$genre', thumbnail_url='$thumbnail_url' WHERE id=$id";
+    // Use prepared statements
+    $stmt = $conn->prepare("UPDATE tv_series SET title=?, description=?, creator=?, genre=?, thumbnail_url=?, video_url=? WHERE id=?");
+    $stmt->bind_param("ssssssi", $title, $description, $creator, $genre, $thumbnail_url, $video_url, $id);
 
-    $result = mysqli_query($conn, $query);
-
-    if (!$result) {
-        echo "Error: " . mysqli_error($conn);
-    } else {
+    if ($stmt->execute()) {
         echo "<h2>Update successful!</h2>";
         echo "<p>Back to <a href='admin.php'>content admin</a></p>";
+    } else {
+        echo "Error: " . $stmt->error;
     }
+    $stmt->close();
 } elseif (isset($_GET['id'])) {
     $id = $_GET['id'];
+    // Use prepared statement to fetch data
+    $stmt_select = $conn->prepare("SELECT * FROM tv_series WHERE id = ?");
+    if ($stmt_select) {
+        $stmt_select->bind_param("i", $id);
+        $stmt_select->execute();
+        $tv_series_result = $stmt_select->get_result();
 
-    // Fetch data for the selected id from featured_tv_seriess table
-    $tv_series_sql = "SELECT * FROM tv_series WHERE id=$id";
-    $tv_series_result = $conn->query($tv_series_sql);
-
-    if ($tv_series_result) {
         if ($tv_series_result->num_rows > 0) {
             $row = $tv_series_result->fetch_assoc();
 ?>
@@ -63,23 +66,27 @@ if (isset($_POST['modify_submit'])) {
                             <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                             <div>
                                 <label for="title">Title:</label>
-                                <input type="text" name="title" id="title" value="<?php echo $row['title']; ?>">
+                                <input type="text" name="title" id="title" value="<?php echo htmlspecialchars($row['title']); ?>">
                             </div>
                             <div>
                                 <label for="description">Description:</label>
-                                <textarea name="description" id="description"><?php echo $row['description']; ?></textarea>
+                                <textarea name="description" id="description"><?php echo htmlspecialchars($row['description']); ?></textarea>
                             </div>
                             <div>
                                 <label for="creator">creator:</label>
-                                <input type="text" name="creator" id="creator" value="<?php echo $row['creator']; ?>">
+                                <input type="text" name="creator" id="creator" value="<?php echo htmlspecialchars($row['creator']); ?>">
                             </div>
                             <div>
                                 <label for="genre">genre:</label>
-                                <input type="text" name="genre" id="genre" value="<?php echo $row['genre']; ?>">
+                                <input type="text" name="genre" id="genre" value="<?php echo htmlspecialchars($row['genre']); ?>">
+                            </div>
+                            <div>
+                                <label for="video_url">Video URL:</label>
+                                <input type="text" name="video_url" id="video_url" value="<?php echo htmlspecialchars($row['video_url'] ?? ''); ?>">
                             </div>
                             <div>
                                 <label for="thumbnail_url">Thumbnail URL:</label>
-                                <input type="text" name="thumbnail_url" id="thumbnail_url" value="<?php echo $row['thumbnail_url']; ?>">
+                                <input type="text" name="thumbnail_url" id="thumbnail_url" value="<?php echo htmlspecialchars($row['thumbnail_url'] ?? ''); ?>">
                             </div>
 
                             <div id="send">
@@ -93,8 +100,10 @@ if (isset($_POST['modify_submit'])) {
         } else {
             echo "No data found for the selected id.";
         }
+        $stmt_select->close();
     } else {
-        echo "Error: " . $conn->error;
+        // Error preparing the select statement
+        echo "Error preparing statement: " . $conn->error;
     }
 }
 $conn->close();

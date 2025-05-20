@@ -25,32 +25,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $thumbnail_url = $_POST['thumbnail_url'];
             $category = $_POST['category'];
             $is_featured = isset($_POST['is_featured']) ? 1 : 0;
-            $insert_query = "INSERT INTO featured_videos (title, description, video_url, thumbnail_url, category, is_featured) VALUES ('$title', '$description', '$video_url', '$thumbnail_url', '$category', '$is_featured')";
+            // Use prepared statements to prevent SQL injection
+            $stmt = $conn->prepare("INSERT INTO featured_videos (title, description, video_url, thumbnail_url, category, is_featured) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssssi", $title, $description, $video_url, $thumbnail_url, $category, $is_featured);
             break;
         case 'movies':
             $release_year = $_POST['release_year'];
             $thumbnail_url = $_POST['thumbnail_url'];
+            $video_url = $_POST['movie_video_url']; // Added for movie video_url
             $director = $_POST['director'];
             $rating = $_POST['rating'];
             $genre = $_POST['genre'];
-            $insert_query = "INSERT INTO movies (title, description, release_year, thumbnail_url, director, genre, rating) VALUES ('$title', '$description', '$release_year', '$thumbnail_url', '$director', '$genre', '$rating')";
+            $stmt = $conn->prepare("INSERT INTO movies (title, description, release_year, thumbnail_url, video_url, director, genre, rating) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssisssss", $title, $description, $release_year, $thumbnail_url, $video_url, $director, $genre, $rating);
             break;
         case 'tv_series':
             $thumbnail_url = $_POST['thumbnail_url'];
+            $video_url = $_POST['tv_series_video_url']; // Added for TV series video_url
             $creator = $_POST['creator'];
             $genre = $_POST['genre'];
-            $insert_query = "INSERT INTO tv_series (title, description, thumbnail_url, creator, genre) VALUES ('$title', '$description', '$thumbnail_url', '$creator', '$genre')";
+            $stmt = $conn->prepare("INSERT INTO tv_series (title, description, thumbnail_url, video_url, creator, genre) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssss", $title, $description, $thumbnail_url, $video_url, $creator, $genre);
             break;
         default:
             echo "Invalid type";
             exit;
     }
 
-    if ($conn->query($insert_query) === TRUE) {
+    if (isset($stmt) && $stmt->execute()) {
         echo "New record added successfully";
     } else {
-        echo "Error: " . $insert_query . "<br>" . $conn->error;
+        echo "Error: " . (isset($stmt) ? $stmt->error : $conn->error);
     }
+    if (isset($stmt)) $stmt->close();
 }
 
 
@@ -111,6 +118,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="movie_thumbnail_url">Thumbnail URL:</label>
             <input type="text" id="movie_thumbnail_url" name="thumbnail_url">
             <br><br>
+            <label for="movie_video_url">Video URL:</label> <!-- Added for movie video_url -->
+            <input type="text" id="movie_video_url" name="movie_video_url">
+            <br><br>
             <label for="director">Director:</label>
             <input type="text" id="director" name="director">
             <br><br>
@@ -126,6 +136,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div id="tv_series_fields" style="display: none;">
             <label for="tv_series_thumbnail_url">Thumbnail URL:</label>
             <input type="text" id="tv_series_thumbnail_url" name="thumbnail_url">
+            <br><br>
+            <label for="tv_series_video_url">Video URL:</label> <!-- Added for TV series video_url -->
+            <input type="text" id="tv_series_video_url" name="tv_series_video_url">
             <br><br>
             <label for="creator">Creator:</label>
             <input type="text" id="creator" name="creator">
