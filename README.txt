@@ -1,3 +1,6 @@
+(VERY OUTDATED)
+
+
 What this project is:
 A streaming website for movies and tv series.
 
