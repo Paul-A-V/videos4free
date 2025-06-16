@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2025 at 10:17 AM
+-- Generation Time: Jun 16, 2025 at 12:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -60,20 +60,25 @@ CREATE TABLE `featured_videos` (
   `video_url` varchar(255) NOT NULL,
   `thumbnail_url` varchar(255) DEFAULT NULL,
   `category` varchar(100) DEFAULT NULL,
-  `is_featured` tinyint(1) DEFAULT 0
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `featured_videos`
 --
 
-INSERT INTO `featured_videos` (`id`, `title`, `description`, `video_url`, `thumbnail_url`, `category`, `is_featured`) VALUES
-(1, 'First video', 'City', 'videos/first.mp4', 'images/first.jpg', 'thesis', 1),
-(2, 'Clock', 'Clock video', 'videos/second.mp4', 'images/second.jpg', 'Thesis', 1),
-(3, 'third', 'video', 'videos/third.mp4', 'images/third.jpg', 'thesis', 1),
-(4, 'fourth', 'desc', 'videos/fourth.mp4', 'images/fourth.jpg', 'thesis', 1),
-(5, 'Fifth', 'bb', 'videos/fifth.mp4', 'images/fifth.jpg', 'thesis', 1),
-(6, 'Sixth', 'Description', 'videos/sixth.mp4', 'images/sixth.jpg', 'thesis', 1);
+INSERT INTO `featured_videos` (`id`, `title`, `description`, `video_url`, `thumbnail_url`, `category`, `created_at`, `user_id`) VALUES
+(1, 'First video', 'City', 'videos/first.mp4', 'images/first.jpg', 'thesis', '2025-06-16 08:31:08', 27),
+(2, 'Clock', 'Clock video', 'videos/second.mp4', 'images/second.jpg', 'Thesis', '2025-06-16 07:38:08', 27),
+(3, 'third', 'video', 'videos/third.mp4', 'images/third.jpg', 'thesis', '2025-06-16 08:32:08', 27),
+(4, 'fourth', 'desc', 'videos/fourth.mp4', 'images/fourth.jpg', 'thesis', '2025-06-16 08:34:08', 27),
+(5, 'Fifth', 'bb', 'videos/fifth.mp4', 'images/fifth.jpg', 'thesis', '2025-06-16 08:36:08', 27),
+(6, 'Sixth', 'Description', 'videos/sixth.mp4', 'images/sixth.jpg', 'thesis', '2025-06-16 05:38:08', 27),
+(31, 'My first video', 'wow', 'videos/firstuserupload.mp4', 'images/firstusertn.jpg', NULL, '2025-06-16 09:38:50', 29),
+(32, '2nd', 'eeee', 'videos/seconduserupload.mp4', 'images/secondusertn.jpg', NULL, '2025-06-16 09:39:10', 29),
+(34, '4th', 'pog', 'videos/fourthuserupload.mp4', 'images/firstusertn.jpg', NULL, '2025-06-16 09:39:47', 29),
+(35, 'Hey there', 'general', 'videos/firstuserupload2.mp4', 'images/thirdusertn2.jpg', NULL, '2025-06-16 09:56:24', 30);
 
 -- --------------------------------------------------------
 
@@ -116,6 +121,13 @@ CREATE TABLE `remember_me` (
   `user_id` int(11) NOT NULL,
   `token` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `remember_me`
+--
+
+INSERT INTO `remember_me` (`id`, `user_id`, `token`) VALUES
+(6, 31, '41cc0662db405eaaf2f738a98fc9ce46');
 
 -- --------------------------------------------------------
 
@@ -164,7 +176,10 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `registration_date`) VALUES
 (27, 'Paul', '$2y$10$yTabY3gIfQIWHHHZ60jwUeLHbtUjHSwNmz8Ei7kpqCcWDaBDh/mT2', '2025-05-22 16:00:18'),
-(28, 'Tom', '$2y$10$dwv63MWiY70xUmNnmK2r3OJ.r36uBvqHXbiPmFtEjHQC.GhrkwVJK', '2025-05-23 06:02:39');
+(28, 'Tom', '$2y$10$dwv63MWiY70xUmNnmK2r3OJ.r36uBvqHXbiPmFtEjHQC.GhrkwVJK', '2025-05-23 06:02:39'),
+(29, 'test', '$2y$10$H3CQAhlCAeNW5jmZjX74ReEtzTsOAeR8hLCcXgy2K9Z75rge9xPrO', '2025-06-16 08:54:34'),
+(30, 'test2', '$2y$10$Qu4n6pSCBeUaKKemdxMb/ObnRLgdZTXDCpuWKKSz.PsEIfSXSIsVe', '2025-06-16 09:55:25'),
+(31, 'test3', '$2y$10$bYHbD2FJQGiyNZu.oMEtWO8oPQcPK1ska3ekOEbxJhAkSIJu2Hkze', '2025-06-16 10:12:34');
 
 --
 -- Indexes for dumped tables
@@ -181,7 +196,8 @@ ALTER TABLE `comments`
 -- Indexes for table `featured_videos`
 --
 ALTER TABLE `featured_videos`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_featured_videos_user` (`user_id`);
 
 --
 -- Indexes for table `movies`
@@ -223,7 +239,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `featured_videos`
 --
 ALTER TABLE `featured_videos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `movies`
@@ -235,7 +251,7 @@ ALTER TABLE `movies`
 -- AUTO_INCREMENT for table `remember_me`
 --
 ALTER TABLE `remember_me`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tv_series`
@@ -247,7 +263,7 @@ ALTER TABLE `tv_series`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Constraints for dumped tables
@@ -258,6 +274,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `comments`
   ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `featured_videos`
+--
+ALTER TABLE `featured_videos`
+  ADD CONSTRAINT `fk_featured_videos_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `remember_me`
