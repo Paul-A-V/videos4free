@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2025 at 09:15 PM
+-- Generation Time: Jun 16, 2025 at 10:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `videos4free`
+-- Database: `webpage_for_video_sharing`
 --
 
 -- --------------------------------------------------------
@@ -42,16 +42,10 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `comment`, `comment_date`, `username`, `user_id`, `video_id`, `video_type`) VALUES
-(18, 'dasds', '2024-05-23 07:31:08', 'testuser', 1, NULL, NULL),
-(23, 'hi', '2024-05-27 17:52:00', 'paul', 17, NULL, NULL),
-(45, 'aloha', '2024-05-29 17:32:53', 'beb', 22, NULL, NULL),
-(46, 'what a video', '2024-05-29 17:33:10', 'beb', 22, NULL, NULL),
-(47, 'baz', '2024-05-29 18:12:46', 'test', 16, NULL, NULL),
-(48, 'cookies', '2024-05-29 18:14:17', 'paul', 17, NULL, NULL),
-(49, 'wowzers', '2025-05-20 18:24:34', 'alexa', 26, 5, 'tv_series'),
-(50, 'yyyyyyy', '2025-05-20 18:24:41', 'alexa', 26, 4, 'tv_series'),
-(51, 'sd', '2025-05-20 19:09:17', 'alexa', 26, 5, 'tv_series'),
-(52, 'asd', '2025-05-20 19:14:09', 'alexa', 26, 6, 'tv_series');
+(53, 'bazinga', '2025-05-22 19:32:09', 'Paul', 27, 5, 'tv_series'),
+(54, 'cool', '2025-05-22 19:32:18', 'Paul', 27, 6, 'tv_series'),
+(55, 'wow', '2025-05-22 19:32:46', 'Paul', 27, 1, 'movie'),
+(56, 'bla\r\n', '2025-05-23 06:03:22', 'Tom', 28, 6, 'tv_series');
 
 -- --------------------------------------------------------
 
@@ -123,13 +117,6 @@ CREATE TABLE `remember_me` (
   `token` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `remember_me`
---
-
-INSERT INTO `remember_me` (`id`, `user_id`, `token`) VALUES
-(4, 17, 'd8c4f7d165bdeea09348ab25c0e345ab');
-
 -- --------------------------------------------------------
 
 --
@@ -176,12 +163,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `registration_date`) VALUES
-(1, 'testuser', 'testpassword', '2024-05-02 18:48:07'),
-(16, 'test', 'test', '2024-05-27 14:51:42'),
-(17, 'paul', 'parola', '2024-05-27 17:41:25'),
-(22, 'beb', 'beb', '2024-05-29 17:32:47'),
-(25, 'boba', '$2y$10$Hhe7naF8rjzxl0UEXVz7N.f.yfSLXegBkYECRtQ0/nGLUcczRb3Ga', '2025-05-20 16:50:22'),
-(26, 'alexa', '$2y$10$0ZVlPT0aO4ZIUYdVzIopkOdMTtF7jOl9PFJfLobdgVXNfJ4ZZ7Xpy', '2025-05-20 16:56:32');
+(27, 'Paul', '$2y$10$yTabY3gIfQIWHHHZ60jwUeLHbtUjHSwNmz8Ei7kpqCcWDaBDh/mT2', '2025-05-22 16:00:18'),
+(28, 'Tom', '$2y$10$dwv63MWiY70xUmNnmK2r3OJ.r36uBvqHXbiPmFtEjHQC.GhrkwVJK', '2025-05-23 06:02:39');
 
 --
 -- Indexes for dumped tables
@@ -234,7 +217,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `featured_videos`
@@ -264,7 +247,7 @@ ALTER TABLE `tv_series`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Constraints for dumped tables
