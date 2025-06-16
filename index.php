@@ -97,22 +97,22 @@ session_start();
 
                 // Your latest video uploads (user-specific)
                 if (isset($_SESSION['user_id'])) { // Check for user_id in session
-                    echo "<p>Your latest video uploads:</p>"; //
+                    echo "<p>Your latest video uploads:</p>";
                     $user_id = $_SESSION['user_id'];
-                    $sql_user_uploads = "SELECT * FROM featured_videos WHERE user_id = ? ORDER BY created_at DESC LIMIT 3"; //
+                    $sql_user_uploads = "SELECT * FROM featured_videos WHERE user_id = ? ORDER BY created_at DESC LIMIT 3";
                     $stmt_user_uploads = $conn->prepare($sql_user_uploads);
                     $stmt_user_uploads->bind_param("i", $user_id);
                     $stmt_user_uploads->execute();
                     $result_user_uploads = $stmt_user_uploads->get_result();
 
-                    echo "<ul class='featured-videos user-uploads' id='user_uploads_videos'>"; // Added a new class AND an ID for styling
+                    echo "<ul class='featured-videos user-uploads' id='user_uploads_videos'>";
                     if ($result_user_uploads->num_rows > 0) { 
                         while ($row = $result_user_uploads->fetch_assoc()) {
                             echo "<li class='slide'><video controls poster='" . $row["thumbnail_url"] . "'>";
                             echo "<source src='" . $row["video_url"] . "' type='video/mp4'>";
                             echo "<source src='" . $row["video_url"] . "' type='video/webm'>";
                             echo "Your browser does not support the video tag.";
-                            echo "</video><small>" . htmlspecialchars($row["title"]) . "</small></li>"; // Added title here
+                            echo "</video><small>" . htmlspecialchars($row["title"]) . "</small></li>";
                         }
                     } else {
                         echo "<p>You haven't uploaded any videos yet.</p>";
