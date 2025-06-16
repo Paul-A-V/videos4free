@@ -23,7 +23,7 @@ session_start();
             <li><a href="movies.php">Movies</a></li>
                 <?php
                 if (isset($_SESSION['username'])) {
-                    echo "<li><a href='upload.php'>Upload Video</a></li>"; // Added Upload Video link
+                    echo "<li><a href='upload.php'>Upload Video</a></li>";
                     echo "<li><a href='logout.php'>Logout</a></li>";
                 }
                 else {
@@ -74,7 +74,7 @@ session_start();
             }
 
             // Query to fetch first three thumbnail URLs for TV series
-            $sql_first_3 = "SELECT id, thumbnail_url FROM tv_series ORDER BY id DESC LIMIT 3"; // Added id and order
+            $sql_first_3 = "SELECT id, thumbnail_url FROM tv_series ORDER BY id DESC LIMIT 3";
             $result_first_3 = $conn->query($sql_first_3);
             // then the next 3
             if ($result_first_3->num_rows > 0) {
@@ -96,7 +96,7 @@ session_start();
             <?php
 
             // same limit as index but for tv series
-            $sql_next_3 = "SELECT id, thumbnail_url FROM tv_series ORDER BY id DESC LIMIT 3 OFFSET 3"; // Added id and order
+            $sql_next_3 = "SELECT id, thumbnail_url FROM tv_series ORDER BY id DESC LIMIT 3 OFFSET 3";
             $result_next_3 = $conn->query($sql_next_3);
 
             if ($result_next_3->num_rows > 0) {

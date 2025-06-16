@@ -23,7 +23,7 @@ session_start();
             <li><a href="movies.php">Movies</a></li>
                 <?php
                 if (isset($_SESSION['username'])) {
-                    echo "<li><a href='upload.php'>Upload Video</a></li>"; // Added Upload Video link
+                    echo "<li><a href='upload.php'>Upload Video</a></li>";
                     echo "<li><a href='logout.php'>Logout</a></li>";
                 }
                 else {
@@ -73,7 +73,7 @@ session_start();
             }
 
             // Query to fetch first three thumbnail URLs for movies
-            $sql_first_3 = "SELECT id, thumbnail_url FROM movies ORDER BY release_year DESC, id DESC LIMIT 3"; // Added id and order
+            $sql_first_3 = "SELECT id, thumbnail_url FROM movies ORDER BY release_year DESC, id DESC LIMIT 3";
             $result_first_3 = $conn->query($sql_first_3);
 
             // Show the first 3 just like in index

@@ -25,7 +25,7 @@ if (isset($_POST['modify_submit'])) {
     $description = $_POST['description'];
     $creator = $_POST['creator'];
     $genre = $_POST['genre'];
-    $video_url = $_POST['video_url']; // Added
+    $video_url = $_POST['video_url'];
     $thumbnail_url = $_POST['thumbnail_url'];
 
     // Use prepared statements

@@ -26,7 +26,7 @@ if (isset($_GET['id']) && isset($_GET['type'])) {
     if ($current_video_id === false) {
         $error_message_video = "Invalid video ID.";
         $current_video_id = null;
-    } elseif (!in_array($current_video_type, ['movie', 'tv_series'])) { // Add 'featured_video' if needed
+    } elseif (!in_array($current_video_type, ['movie', 'tv_series'])) { // Add 'featured_video' in the future maybe idk
         $error_message_video = "Invalid video type.";
         $current_video_type = null;
     } else {
@@ -156,13 +156,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['comment'])) {
 </header>
 
 <main>
-    <!-- The H1 tag displaying the video title has been removed from here -->
     <section>
         <?php if ($video_data && !empty($video_data['video_url'])): ?>
             <video controls poster="<?php echo htmlspecialchars($video_data['thumbnail_url']); ?>" width="100%">
                 <source src="<?php echo htmlspecialchars($video_data['video_url']); ?>" type="video/mp4">
-                <!-- You might want to add other video formats if available -->
-                <!-- <source src="path/to/video.webm" type="video/webm"> -->
                 Your browser does not support the video tag.
             </video>
         <?php else: ?>

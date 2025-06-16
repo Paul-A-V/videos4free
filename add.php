@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         case 'movies':
             $release_year = $_POST['release_year'];
             $thumbnail_url = $_POST['thumbnail_url'];
-            $video_url = $_POST['movie_video_url']; // Added for movie video_url
+            $video_url = $_POST['movie_video_url'];
             $director = $_POST['director'];
             $rating = $_POST['rating'];
             $genre = $_POST['genre'];
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             break;
         case 'tv_series':
             $thumbnail_url = $_POST['thumbnail_url'];
-            $video_url = $_POST['tv_series_video_url']; // Added for TV series video_url
+            $video_url = $_POST['tv_series_video_url'];
             $creator = $_POST['creator'];
             $genre = $_POST['genre'];
             $stmt = $conn->prepare("INSERT INTO tv_series (title, description, thumbnail_url, video_url, creator, genre) VALUES (?, ?, ?, ?, ?, ?)");

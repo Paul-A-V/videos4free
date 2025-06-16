@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
 
         if (password_verify($plainPassword, $hashedPasswordFromDb)) {
             $_SESSION['username'] = $username;
-            $_SESSION['user_id'] = $row['id']; // <-- ADDED THIS LINE
+            $_SESSION['user_id'] = $row['id'];
 
             if (isset($_POST['remember_me'])) {
                 $token = generateToken();
@@ -74,7 +74,7 @@ if (isset($_COOKIE['remember_token'])) {
             $row = $result->fetch_assoc();
             $username = $row['username'];
             $_SESSION['username'] = $username;
-            $_SESSION['user_id'] = $user_id; // <-- ADDED THIS LINE
+            $_SESSION['user_id'] = $user_id;
             header("Location: index.php");
             exit;
         } else {

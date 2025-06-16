@@ -80,7 +80,7 @@ session_start();
                 $sql_featured = "SELECT * FROM featured_videos ORDER BY created_at DESC LIMIT 3";
                 $result_featured = $conn->query($sql_featured);
 
-                echo "<ul class='featured-videos' id='general_featured_videos'>"; // Added an ID here
+                echo "<ul class='featured-videos' id='general_featured_videos'>";
                 // Show the videos
                 if ($result_featured->num_rows > 0) {
                     while ($row = $result_featured->fetch_assoc()) {
@@ -88,7 +88,7 @@ session_start();
                         echo "<source src='" . $row["video_url"] . "' type='video/mp4'>";
                         echo "<source src='" . $row["video_url"] . "' type='video/webm'>";
                         echo "Your browser does not support the video tag.";
-                        echo "</video><small>" . htmlspecialchars($row["title"]) . "</small></li>"; // Added title here
+                        echo "</video><small>" . htmlspecialchars($row["title"]) . "</small></li>";
                     }
                 } else {
                     echo "<p>No featured videos available.</p>";
@@ -100,25 +100,25 @@ session_start();
                     echo "<p>Your latest video uploads:</p>"; //
                     $user_id = $_SESSION['user_id'];
                     $sql_user_uploads = "SELECT * FROM featured_videos WHERE user_id = ? ORDER BY created_at DESC LIMIT 3"; //
-                    $stmt_user_uploads = $conn->prepare($sql_user_uploads); //
-                    $stmt_user_uploads->bind_param("i", $user_id); //
-                    $stmt_user_uploads->execute(); //
-                    $result_user_uploads = $stmt_user_uploads->get_result(); //
+                    $stmt_user_uploads = $conn->prepare($sql_user_uploads);
+                    $stmt_user_uploads->bind_param("i", $user_id);
+                    $stmt_user_uploads->execute();
+                    $result_user_uploads = $stmt_user_uploads->get_result();
 
                     echo "<ul class='featured-videos user-uploads' id='user_uploads_videos'>"; // Added a new class AND an ID for styling
-                    if ($result_user_uploads->num_rows > 0) { //
-                        while ($row = $result_user_uploads->fetch_assoc()) { //
-                            echo "<li class='slide'><video controls poster='" . $row["thumbnail_url"] . "'>"; //
-                            echo "<source src='" . $row["video_url"] . "' type='video/mp4'>"; //
-                            echo "<source src='" . $row["video_url"] . "' type='video/webm'>"; //
-                            echo "Your browser does not support the video tag."; //
+                    if ($result_user_uploads->num_rows > 0) { 
+                        while ($row = $result_user_uploads->fetch_assoc()) {
+                            echo "<li class='slide'><video controls poster='" . $row["thumbnail_url"] . "'>";
+                            echo "<source src='" . $row["video_url"] . "' type='video/mp4'>";
+                            echo "<source src='" . $row["video_url"] . "' type='video/webm'>";
+                            echo "Your browser does not support the video tag.";
                             echo "</video><small>" . htmlspecialchars($row["title"]) . "</small></li>"; // Added title here
                         }
                     } else {
-                        echo "<p>You haven't uploaded any videos yet.</p>"; //
+                        echo "<p>You haven't uploaded any videos yet.</p>";
                     }
-                    echo "</ul>"; //
-                    $stmt_user_uploads->close(); //
+                    echo "</ul>";
+                    $stmt_user_uploads->close();
                 }
 
                 $conn->close();
