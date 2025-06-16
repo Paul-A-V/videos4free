@@ -18,9 +18,8 @@ function generateToken() {
 
 if (isset($_POST['submit'])) {
     $username = htmlspecialchars($_POST['username']);
-    $plainPassword = $_POST['password']; // Get the plain text password
+    $plainPassword = $_POST['password'];
 
-    // Fetch the stored hashed password for the given username
     $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
 
@@ -30,19 +29,16 @@ if (isset($_POST['submit'])) {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $hashedPasswordFromDb = $row['password']; // Get the hashed password from the database
+        $hashedPasswordFromDb = $row['password'];
 
-        // Use password_verify to check the plain password against the hash
         if (password_verify($plainPassword, $hashedPasswordFromDb)) {
             $_SESSION['username'] = $username;
+            $_SESSION['user_id'] = $row['id']; // <-- ADDED THIS LINE
 
-            // Check if "Remember Me" is selected
             if (isset($_POST['remember_me'])) {
                 $token = generateToken();
                 $user_id = $row['id'];
-                setcookie('remember_token', $token, time() + (86400 * 30), "/"); // Set cookie to expire in 30 days
-                // Store or update the token
-                // Added ON DUPLICATE KEY UPDATE to handle cases where a user might already have a token
+                setcookie('remember_token', $token, time() + (86400 * 30), "/");
                 $stmt_token = $conn->prepare("INSERT INTO remember_me (user_id, token) VALUES (?, ?) ON DUPLICATE KEY UPDATE token = VALUES(token)");
                 $stmt_token->bind_param("is", $user_id, $token);
                 $stmt_token->execute();
@@ -52,16 +48,15 @@ if (isset($_POST['submit'])) {
             header("Location: index.php");
             exit;
         } else {
-            $error_message = "Invalid username or password!"; // Password doesn't match
+            $error_message = "Invalid username or password!";
         }
     } else {
-        $error_message = "Invalid username or password!"; // Username not found
+        $error_message = "Invalid username or password!";
     }
 
     $stmt->close();
 }
 
-// Attempt to log in using remember me token
 if (isset($_COOKIE['remember_token'])) {
     $token = $_COOKIE['remember_token'];
     $stmt = $conn->prepare("SELECT user_id FROM remember_me WHERE token = ?");
@@ -71,7 +66,6 @@ if (isset($_COOKIE['remember_token'])) {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $user_id = $row['user_id'];
-        // Retrieve username from user_id
         $stmt = $conn->prepare("SELECT username FROM users WHERE id = ?");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
@@ -79,8 +73,8 @@ if (isset($_COOKIE['remember_token'])) {
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $username = $row['username'];
-            // Log in user
             $_SESSION['username'] = $username;
+            $_SESSION['user_id'] = $user_id; // <-- ADDED THIS LINE
             header("Location: index.php");
             exit;
         } else {

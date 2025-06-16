@@ -27,11 +27,13 @@ if (isset($_POST['modify_submit'])) {
     $thumbnail_url = $_POST['thumbnail_url'];
     $category = $_POST['category'];
     $is_featured = isset($_POST['is_featured']) ? 1 : 0;
+    $created_at = $_POST['created_at']; // Get the created_at value from the form
 
-    // Use prepared statements for UPDATE
-    $stmt_update = $conn->prepare("UPDATE featured_videos SET title=?, description=?, video_url=?, thumbnail_url=?, category=?, is_featured=? WHERE id=?");
+    // Use prepared statements for UPDATE, now including created_at
+    $stmt_update = $conn->prepare("UPDATE featured_videos SET title=?, description=?, video_url=?, thumbnail_url=?, category=?, is_featured=?, created_at=? WHERE id=?");
     if ($stmt_update) {
-        $stmt_update->bind_param("sssssii", $title, $description, $video_url, $thumbnail_url, $category, $is_featured, $id);
+        // Updated bind_param: added 's' for created_at string, new variable at the end
+        $stmt_update->bind_param("sssssisi", $title, $description, $video_url, $thumbnail_url, $category, $is_featured, $created_at, $id);
         if ($stmt_update->execute()) {
             echo "<h2>Update successful!</h2>";
             echo "<p>Back to <a href='admin.php'>content admin</a></p>";
@@ -45,7 +47,7 @@ if (isset($_POST['modify_submit'])) {
 } elseif (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Use prepared statement to fetch data
+    // Use prepared statement to fetch data (the existing query is fine as it fetches all columns)
     $stmt_select = $conn->prepare("SELECT * FROM featured_videos WHERE id = ?");
     if ($stmt_select) {
         $stmt_select->bind_param("i", $id);
@@ -91,6 +93,10 @@ if (isset($_POST['modify_submit'])) {
                             <div>
                                 <label for="is_featured">Is Featured:</label>
                                 <input type="checkbox" name="is_featured" id="is_featured" <?php if ($row['is_featured']) echo "checked"; ?>>
+                            </div>
+                            <div>
+                                <label for="created_at">Created At:</label>
+                                <input type="datetime-local" name="created_at" id="created_at" value="<?php echo date('Y-m-d\TH:i:s', strtotime($row['created_at'])); ?>">
                             </div>
                             <div id="send">
                                 <input type="submit" name="modify_submit" value="Modify">

@@ -25,8 +25,9 @@ if (isset($_POST['submit'])) {
 
     if ($stmt->execute()) {
         $success_message = "<h2 class='success-message'>Registration successful!</h2>";
-        $_SESSION['username'] = $username; // Setting up the session for the new user
-        header("refresh:1;url=index.php"); // Redirecting to index.php after registration
+        $_SESSION['username'] = $username;
+        $_SESSION['user_id'] = $conn->insert_id; // <-- ADDED THIS LINE
+        header("refresh:1;url=index.php");
     } else {
         echo "<h2 class='error-message'>Error: " . $stmt->error . "</h2>";
     }

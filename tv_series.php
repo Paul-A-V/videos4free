@@ -21,8 +21,9 @@ session_start();
             <li><a href="index.php">Home</a></li>
             <li><a href="tv_series.php">TV Series</a></li>
             <li><a href="movies.php">Movies</a></li>
-            <?php
+                <?php
                 if (isset($_SESSION['username'])) {
+                    echo "<li><a href='upload.php'>Upload Video</a></li>"; // Added Upload Video link
                     echo "<li><a href='logout.php'>Logout</a></li>";
                 }
                 else {

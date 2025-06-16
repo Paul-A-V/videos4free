@@ -124,13 +124,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['comment'])) {
             <li><a href="index.php">Home</a></li>
             <li><a href="tv_series.php">TV Series</a></li>
             <li><a href="movies.php">Movies</a></li>
-            <?php
-            if (isset($_SESSION['username'])) {
-                echo "<li><a href='logout.php'>Logout</a></li>";
-            } else {
-                echo "<li><a href='login.php'>Login</a></li>";
-            }
-            ?>
+                <?php
+                if (isset($_SESSION['username'])) {
+                    echo "<li><a href='upload.php'>Upload Video</a></li>"; // Added Upload Video link
+                    echo "<li><a href='logout.php'>Logout</a></li>";
+                }
+                else {
+                    echo  "<li><a href='login.php'>Login</a></li>";
+                    }
+                ?>
             <li><a href="search.php">Search</a></li>
         </ul>
     </nav>
