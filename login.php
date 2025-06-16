@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username_db = "root";
 $password_db = "";
-$dbname = "videos4free";
+$dbname = "webpage_for_video_sharing";
 
 $conn = new mysqli($servername, $username_db, $password_db, $dbname);
 

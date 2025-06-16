@@ -9,7 +9,7 @@ if (!isset($_GET['id'])) {
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "videos4free";
+$dbname = "webpage_for_video_sharing";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

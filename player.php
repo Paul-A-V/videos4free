@@ -4,7 +4,7 @@ session_start();
 $servername = "localhost";
 $db_username = "root"; // Renamed for clarity
 $db_password = ""; // Renamed for clarity
-$dbname = "videos4free";
+$dbname = "webpage_for_video_sharing";
 
 $conn = new mysqli($servername, $db_username, $db_password, $dbname);
 
@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['comment'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="images/icon1.png" type="image/x-icon">
-    <title><?php echo $video_title; ?> - Videos4Free</title>
+    <title><?php echo $video_title; ?> - webpage_for_video_sharing</title>
     <link rel="stylesheet" href="player_style.css">
 </head>
 

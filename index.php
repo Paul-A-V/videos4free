@@ -10,7 +10,7 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="images/icon1.png" type="image/x-icon">
-    <title>Videos 4 Free</title>
+    <title>Webpage for video sharing</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -67,7 +67,7 @@ session_start();
                 $servername = "localhost";
                 $username = "root";
                 $password = "";
-                $dbname = "videos4free";
+                $dbname = "webpage_for_video_sharing";
 
                 $conn = new mysqli($servername, $username, $password, $dbname);
 
