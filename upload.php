@@ -30,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_video"])) {
     $thumbnail_file_size = $_FILES["thumbnail_file"]["size"];
     $thumbnail_file_error = $_FILES["thumbnail_file"]["error"];
 
-    // Using 'images/' for thumbnails, adjust if you create a 'thumbnails/' folder
     $thumbnail_target_dir = "images/";
     $thumbnail_target_file = $thumbnail_target_dir . basename($thumbnail_file_name);
     $thumbnail_file_type = strtolower(pathinfo($thumbnail_target_file, PATHINFO_EXTENSION));
@@ -51,13 +50,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_video"])) {
             $errors[] = "Sorry, only MP4 & WEBM video files are allowed.";
             $uploadOk = 0;
         }
-        if ($video_file_size > 20000000) { // 20 MB = 20,000,000 bytes
+        if ($video_file_size > 20000000) {
             $errors[] = "Sorry, your video file is too large. Max 20MB.";
             $uploadOk = 0;
         }
         if (file_exists($video_target_file)) {
             $errors[] = "Sorry, a video file with the same name already exists.";
-            // Optionally rename the file: $video_target_file = $video_target_dir . uniqid() . "." . $video_file_type;
         }
     }
 
@@ -75,13 +73,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_video"])) {
                 $errors[] = "Sorry, only JPG, JPEG, & PNG thumbnail files are allowed.";
                 $uploadOk = 0;
             }
-            if ($thumbnail_file_size > 1000000) { // 1 MB = 1,000,000 bytes
+            if ($thumbnail_file_size > 1000000) {
                 $errors[] = "Sorry, your thumbnail file is too large. Max 1MB.";
                 $uploadOk = 0;
             }
             if (file_exists($thumbnail_target_file)) {
                 $errors[] = "Sorry, a thumbnail file with the same name already exists.";
-                // Optionally rename the file: $thumbnail_target_file = $thumbnail_target_dir . uniqid() . "." . $thumbnail_file_type;
             }
         }
     }
@@ -109,7 +106,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload_video"])) {
             }
 
             // Insert video details into featured_videos table
-            // Assuming `is_featured` is 0 by default for user uploads unless an admin marks them
             $sql = "INSERT INTO featured_videos (title, description, video_url, thumbnail_url, user_id, created_at) VALUES (?, ?, ?, ?, ?, NOW())";
             $stmt = $conn->prepare($sql);
 
