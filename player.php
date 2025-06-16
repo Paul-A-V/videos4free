@@ -143,13 +143,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['comment'])) {
             <li class="mobile_ui"><a href="tv_series.php">TV Series</a></li>
             <li class="mobile_ui"><a href="movies.php">Movies</a></li>
             <li class="mobile_ui"><a href="search.php">Search</a></li>
-            <?php
-            if (isset($_SESSION['username'])) {
-                echo "<li class='mobile_ui'><a href='logout.php'>Logout</a></li>";
-            } else {
-                echo "<li class='mobile_ui'><a href='login.php'>Login</a></li>";
-            }
-            ?>
+                <?php
+                if (isset($_SESSION['username'])) {
+                    echo "<li class='mobile_ui'><a href='upload.php'>Upload Video</a></li>";
+                    echo "<li class='mobile_ui'><a href='logout.php'>Logout</a></li>";
+                } else {
+                    echo "<li class='mobile_ui'><a href='login.php'>Login</a></li>";
+                }
+                ?>
         </ul>
     </nav>
 </header>

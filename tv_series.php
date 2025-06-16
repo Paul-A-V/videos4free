@@ -40,12 +40,11 @@ session_start();
             <li class="mobile_ui"><a href="tv_series.php">TV Series</a></li>
             <li class="mobile_ui"><a href="movies.php">Movies</a></li>
             <li class="mobile_ui"><a href="search.php">Search</a></li>
-            <?php
+                <?php
                 if (isset($_SESSION['username'])) {
-                    //tbd,add mylist/bookmark
+                    echo "<li class='mobile_ui'><a href='upload.php'>Upload Video</a></li>";
                     echo "<li class='mobile_ui'><a href='logout.php'>Logout</a></li>";
                 } else {
-                    //tbd,add mylist/bookmark same here even logged out/as guest
                     echo "<li class='mobile_ui'><a href='login.php'>Login</a></li>";
                 }
                 ?>

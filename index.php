@@ -25,7 +25,7 @@ session_start();
                 <li><a href="movies.php">Movies</a></li>
                 <?php
                 if (isset($_SESSION['username'])) {
-                    echo "<li><a href='upload.php'>Upload Video</a></li>"; // Added Upload Video link
+                    echo "<li><a href='upload.php'>Upload Video</a></li>";
                     echo "<li><a href='logout.php'>Logout</a></li>";
                 }
                 else {
@@ -44,7 +44,7 @@ session_start();
                 <li class="mobile_ui"><a href="search.php">Search</a></li>
                 <?php
                 if (isset($_SESSION['username'])) {
-                    echo "<li class='mobile_ui'><a href='upload.php'>Upload Video</a></li>"; // Added Upload Video link
+                    echo "<li class='mobile_ui'><a href='upload.php'>Upload Video</a></li>";
                     echo "<li class='mobile_ui'><a href='logout.php'>Logout</a></li>";
                 } else {
                     echo "<li class='mobile_ui'><a href='login.php'>Login</a></li>";
@@ -77,10 +77,10 @@ session_start();
                 }
 
                 // Get the latest 3 videos (general featured videos)
-                $sql_featured = "SELECT * FROM featured_videos WHERE is_featured = 1 ORDER BY created_at DESC LIMIT 3";
+                $sql_featured = "SELECT * FROM featured_videos ORDER BY created_at DESC LIMIT 3";
                 $result_featured = $conn->query($sql_featured);
 
-                echo "<ul class='featured-videos'>";
+                echo "<ul class='featured-videos' id='general_featured_videos'>"; // Added an ID here
                 // Show the videos
                 if ($result_featured->num_rows > 0) {
                     while ($row = $result_featured->fetch_assoc()) {
@@ -88,7 +88,7 @@ session_start();
                         echo "<source src='" . $row["video_url"] . "' type='video/mp4'>";
                         echo "<source src='" . $row["video_url"] . "' type='video/webm'>";
                         echo "Your browser does not support the video tag.";
-                        echo "</video></li>";
+                        echo "</video><small>" . htmlspecialchars($row["title"]) . "</small></li>"; // Added title here
                     }
                 } else {
                     echo "<p>No featured videos available.</p>";
@@ -105,14 +105,14 @@ session_start();
                     $stmt_user_uploads->execute(); //
                     $result_user_uploads = $stmt_user_uploads->get_result(); //
 
-                    echo "<ul class='featured-videos user-uploads'>"; // Added a new class for styling
+                    echo "<ul class='featured-videos user-uploads' id='user_uploads_videos'>"; // Added a new class AND an ID for styling
                     if ($result_user_uploads->num_rows > 0) { //
                         while ($row = $result_user_uploads->fetch_assoc()) { //
                             echo "<li class='slide'><video controls poster='" . $row["thumbnail_url"] . "'>"; //
                             echo "<source src='" . $row["video_url"] . "' type='video/mp4'>"; //
                             echo "<source src='" . $row["video_url"] . "' type='video/webm'>"; //
                             echo "Your browser does not support the video tag."; //
-                            echo "</video></li>"; //
+                            echo "</video><small>" . htmlspecialchars($row["title"]) . "</small></li>"; // Added title here
                         }
                     } else {
                         echo "<p>You haven't uploaded any videos yet.</p>"; //

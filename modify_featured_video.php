@@ -26,14 +26,13 @@ if (isset($_POST['modify_submit'])) {
     $video_url = $_POST['video_url'];
     $thumbnail_url = $_POST['thumbnail_url'];
     $category = $_POST['category'];
-    $is_featured = isset($_POST['is_featured']) ? 1 : 0;
-    $created_at = $_POST['created_at']; // Get the created_at value from the form
+    $created_at = $_POST['created_at'];
 
-    // Use prepared statements for UPDATE, now including created_at
-    $stmt_update = $conn->prepare("UPDATE featured_videos SET title=?, description=?, video_url=?, thumbnail_url=?, category=?, is_featured=?, created_at=? WHERE id=?");
+    // Use prepared statements for UPDATE, now excluding is_featured
+    $stmt_update = $conn->prepare("UPDATE featured_videos SET title=?, description=?, video_url=?, thumbnail_url=?, category=?, created_at=? WHERE id=?");
     if ($stmt_update) {
-        // Updated bind_param: added 's' for created_at string, new variable at the end
-        $stmt_update->bind_param("sssssisi", $title, $description, $video_url, $thumbnail_url, $category, $is_featured, $created_at, $id);
+        // Updated bind_param: removed 'i' for is_featured, adjusted order
+        $stmt_update->bind_param("ssssssi", $title, $description, $video_url, $thumbnail_url, $category, $created_at, $id);
         if ($stmt_update->execute()) {
             echo "<h2>Update successful!</h2>";
             echo "<p>Back to <a href='admin.php'>content admin</a></p>";
@@ -89,10 +88,6 @@ if (isset($_POST['modify_submit'])) {
                             <div>
                                 <label for="category">Category:</label>
                                 <input type="text" name="category" id="category" value="<?php echo htmlspecialchars($row['category']); ?>">
-                            </div>
-                            <div>
-                                <label for="is_featured">Is Featured:</label>
-                                <input type="checkbox" name="is_featured" id="is_featured" <?php if ($row['is_featured']) echo "checked"; ?>>
                             </div>
                             <div>
                                 <label for="created_at">Created At:</label>

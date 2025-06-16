@@ -1,4 +1,4 @@
-// mobile menu 
+// mobile menu
 var menu = document.getElementById('menu');
 var mmenu = document.getElementById('mobile_menu');
 var close = document.getElementById('Close');
@@ -17,57 +17,51 @@ for (el of list) {
 }
 
 
-// slider
-var slideVideos = document.getElementsByClassName("slide");
-var slideVideos_2 = document.getElementsByClassName("slide_2");
-var counter1 = 0;
-var counter2 = 0;
+// slider for general featured videos
+var generalSlideVideos = document.getElementById("general_featured_videos") ? document.getElementById("general_featured_videos").getElementsByClassName("slide") : [];
+var generalCounter = 0;
 
-function hideAllVideos() {
-  for (var i = 0; i < slideVideos.length; i++) {
-    slideVideos[i].style.display = "none";
+// slider for user uploads videos
+var userUploadsSlideVideos = document.getElementById("user_uploads_videos") ? document.getElementById("user_uploads_videos").getElementsByClassName("slide") : [];
+var userUploadsCounter = 0;
+
+function hideAllVideos(videosArray) {
+  for (var i = 0; i < videosArray.length; i++) {
+    videosArray[i].style.display = "none";
   }
 }
 
-function hideAllVideos_2() {
-  for (var i = 0; i < slideVideos_2.length; i++) {
-    slideVideos_2[i].style.display = "none";
+function slideshow(videosArray, counter) {
+  hideAllVideos(videosArray);
+  if (counter >= videosArray.length) {
+    counter = 0;
+  } else if (counter < 0) {
+    counter = videosArray.length - 1;
   }
-}
-
-function slideshow() {
-  hideAllVideos();
-  if (counter1 > slideVideos.length - 1) {
-    counter1 = 0;
-  } else if (counter1 < 0) {
-    counter1 = slideVideos.length - 1;
-  }
-  slideVideos[counter1].style.display = "block";
-}
-
-function slideshow_2() {
-  hideAllVideos_2();
-  if (counter2 > slideVideos_2.length - 1) {
-    counter2 = 0;
-  } else if (counter2 < 0) {
-    counter2 = slideVideos_2.length - 1;
-  }
-  slideVideos_2[counter2].style.display = "block";
+  videosArray[counter].style.display = "block";
+  return counter; // Return the updated counter
 }
 
 function showNextVideo() {
-  counter1++;
-  counter2++;
-  slideshow();
-  slideshow_2();
+  generalCounter = slideshow(generalSlideVideos, generalCounter + 1);
+  userUploadsCounter = slideshow(userUploadsSlideVideos, userUploadsCounter + 1);
 }
 
 function showPreviousVideo() {
-  counter1--;
-  counter2--;
-  slideshow();
-  slideshow_2();
+  generalCounter = slideshow(generalSlideVideos, generalCounter - 1);
+  userUploadsCounter = slideshow(userUploadsSlideVideos, userUploadsCounter - 1);
 }
+
+// Initial display
+window.onload = function () {
+  if (generalSlideVideos.length > 0) {
+    generalSlideVideos[generalCounter].style.display = "block";
+  }
+  if (userUploadsSlideVideos.length > 0) {
+    userUploadsSlideVideos[userUploadsCounter].style.display = "block";
+  }
+};
+
 
 document.getElementById("next").addEventListener("click", showNextVideo);
 document.getElementById("previous").addEventListener("click", showPreviousVideo);
